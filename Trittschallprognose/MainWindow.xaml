@@ -1,0 +1,87 @@
+﻿<Window x:Class="Trittschallprognose.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Trittschallprognose"
+        xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="Trittschalldämmung" Height="450" Width="800">
+    <Window.DataContext>
+        <local:Schalldaten></local:Schalldaten>
+    </Window.DataContext>
+    <TabControl>
+        <TabItem Header="Aufbau">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <ListBox ItemsSource="{Binding Treppenaufbau}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox VerticalAlignment="Center"></CheckBox>
+                                <Label Content="{Binding Typbezeichnung}" Width="250"/>
+                                <Label Content="Produkt:" ></Label>
+                                <ComboBox Padding="10,0,0,0" Width="100" ></ComboBox>
+                                <Label Content="Dicke:" Margin="10,0,0,0"></Label>
+                                <ComboBox ItemsSource="{Binding MoeglicheDicken}" Width="50"></ComboBox>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                
+            </Grid>
+        </TabItem>
+        <TabItem Header="Ergebnis">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0">
+                    <!--<Image Source=".\Resources\ss_schn_beton_r.jpg" Stretch="None">
+            </Image>
+            -->
+                    <Image Source=".\Resources\CroppedImages\ss_schn_bt_ditra25_kleber_1mm_r_cropped.jpg" Stretch="None"/>
+                    <Image Source=".\Resources\CroppedImages\ss_schn_bt_23f_estrich_20mm_r_cropped.jpg" Stretch="None"/>
+                    <Image Source=".\Resources\CroppedImages\ss_schn_bt_2520_estrich_8mm_r_cropped.jpg" Stretch="None"/>
+                    <Image Source=".\Resources\CroppedImages\ss_schn_bt_fliesen_kleber_3mm_r_cropped.jpg" Stretch="None"/>
+                    <Image Source=".\Resources\CroppedImages\ss_schn_beton_r_cropped.jpg" Stretch="None"/>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Orientation="Horizontal">
+                    <TextBlock FontSize="20">L'<Run BaselineAlignment="Subscript" FontSize="12">n, w, R</Run></TextBlock>
+                    <TextBlock FontSize="20" Text="&lt;" Margin="10,0,0,0"/>
+                    <TextBlock FontSize="20" Text="72" Margin="10,0,0,0"/>
+                </StackPanel>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Development">
+            <StackPanel>
+                <Image Source="{Binding Fliese.Bild}"/>
+                <Image Source="{Binding Estrich.Bild}"/>
+                <Image Source="{Binding Ditra.Bild}"/>
+                <Image Source="{Binding Schalldaemmung.Bild}"/>
+                <Image Source="{Binding Daemmung.Bild}"/>
+                <Image Source="{Binding Beton.Bild}"/>
+            </StackPanel>
+            
+        </TabItem>
+        <TabItem Header="Development 2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+                <ListBox Grid.Column="0" ItemsSource="{Binding Einzelelemente}" SelectedItem="{Binding SelectedEinzelelement, Mode=TwoWay}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Bezeichnung}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Image Source="{Binding SelectedEinzelelement.Bild}" Grid.Column="1"/>
+            </Grid>
+        </TabItem>
+    </TabControl>
+</Window>

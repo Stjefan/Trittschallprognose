@@ -1,0 +1,128 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="bin\**" />
+    <EmbeddedResource Remove="bin\**" />
+    <None Remove="bin\**" />
+    <Page Remove="bin\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\CroppedImages\ss_schn_beton_r_cropped.jpg" />
+    <None Remove="Resources\CroppedImages\ss_schn_bt_12fk_8mm_r_cropped.jpg" />
+    <None Remove="Resources\CroppedImages\ss_schn_bt_23f_estrich_20mm_r_cropped.jpg" />
+    <None Remove="Resources\CroppedImages\ss_schn_bt_23f_estrich_8mm_r_cropped.jpg" />
+    <None Remove="Resources\CroppedImages\ss_schn_bt_2520_estrich_20mm_r_cropped.jpg" />
+    <None Remove="Resources\CroppedImages\ss_schn_bt_2520_estrich_8mm_r_cropped.jpg" />
+    <None Remove="Resources\CroppedImages\ss_schn_bt_ditra25_kleber_1mm_r_cropped.jpg" />
+    <None Remove="Resources\CroppedImages\ss_schn_bt_ditra_heat_kleber_2mm_r_cropped.jpg" />
+    <None Remove="Resources\CroppedImages\ss_schn_bt_fliesen_kleber_3mm_r_cropped.jpg" />
+    <None Remove="Resources\CroppedImages\ss_schn_cemwood_r_cropped.jpg" />
+    <None Remove="Resources\CroppedImages\ss_schn_eps_15mm_r_cropped.jpg" />
+    <None Remove="Resources\CroppedImages\ss_schn_eps_30mm_r_cropped.jpg" />
+    <None Remove="Resources\CroppedImages\ss_schn_eps_35mm_r_cropped.jpg" />
+    <None Remove="Resources\CroppedImages\ss_schn_gutex_thermofloor_r_cropped.jpg" />
+    <None Remove="Resources\CroppedImages\ss_schn_isover_r_cropped.jpg" />
+    <None Remove="Resources\CroppedImages\ss_schn_kerdi-line-sr_r_cropped.jpg" />
+    <None Remove="Resources\CroppedImages\ss_schn_rockwoll-HP_r_cropped.jpg" />
+    <None Remove="Resources\CroppedImages\ss_schn_rockwoll-te_r_cropped.jpg" />
+    <None Remove="Resources\CroppedImages\ss_schn_thermowhite_55mm_r_cropped.jpg" />
+    <None Remove="Resources\CroppedImages\ss_schn_thermowhite_60mm_r_cropped.jpg" />
+    <None Remove="Resources\CroppedImages\ss_schn_thermowhite_70mm_r_cropped.jpg" />
+    <None Remove="Resources\ss_schn_beton_r.jpg" />
+    <None Remove="Resources\ss_schn_bt_12fk_8mm_r.jpg" />
+    <None Remove="Resources\ss_schn_bt_23f_estrich_20mm_r.jpg" />
+    <None Remove="Resources\ss_schn_bt_23f_estrich_8mm_r.jpg" />
+    <None Remove="Resources\ss_schn_bt_2520_estrich_20mm_r.jpg" />
+    <None Remove="Resources\ss_schn_bt_2520_estrich_8mm_r.jpg" />
+    <None Remove="Resources\ss_schn_bt_ditra25_kleber_1mm_r.jpg" />
+    <None Remove="Resources\ss_schn_bt_ditra_heat_kleber_2mm_r.jpg" />
+    <None Remove="Resources\ss_schn_bt_fliesen_kleber_3mm_r.jpg" />
+    <None Remove="Resources\ss_schn_cemwood_r.jpg" />
+    <None Remove="Resources\ss_schn_eps_15mm_r.jpg" />
+    <None Remove="Resources\ss_schn_eps_30mm_r.jpg" />
+    <None Remove="Resources\ss_schn_eps_35mm_r.jpg" />
+    <None Remove="Resources\ss_schn_gutex_thermofloor_r.jpg" />
+    <None Remove="Resources\ss_schn_isover_r.jpg" />
+    <None Remove="Resources\ss_schn_kerdi-line-sr_r.jpg" />
+    <None Remove="Resources\ss_schn_rockwoll-HP_r.jpg" />
+    <None Remove="Resources\ss_schn_rockwoll-te_r.jpg" />
+    <None Remove="Resources\ss_schn_thermowhite_55mm_r.jpg" />
+    <None Remove="Resources\ss_schn_thermowhite_60mm_r.jpg" />
+    <None Remove="Resources\ss_schn_thermowhite_70mm_r.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.0.2" />
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0-preview.2.21154.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\CroppedImages\ss_schn_bt_12fk_8mm_r_cropped.jpg" />
+    <Resource Include="Resources\CroppedImages\ss_schn_beton_r_cropped.jpg" />
+    <Resource Include="Resources\CroppedImages\ss_schn_bt_23f_estrich_20mm_r_cropped.jpg" />
+    <Resource Include="Resources\CroppedImages\ss_schn_bt_23f_estrich_8mm_r_cropped.jpg" />
+    <Resource Include="Resources\CroppedImages\ss_schn_bt_2520_estrich_20mm_r_cropped.jpg" />
+    <Resource Include="Resources\CroppedImages\ss_schn_bt_2520_estrich_8mm_r_cropped.jpg" />
+    <Resource Include="Resources\CroppedImages\ss_schn_bt_ditra25_kleber_1mm_r_cropped.jpg" />
+    <Resource Include="Resources\CroppedImages\ss_schn_bt_ditra_heat_kleber_2mm_r_cropped.jpg" />
+    <Resource Include="Resources\CroppedImages\ss_schn_bt_fliesen_kleber_3mm_r_cropped.jpg" />
+    <Resource Include="Resources\CroppedImages\ss_schn_cemwood_r_cropped.jpg" />
+    <Resource Include="Resources\CroppedImages\ss_schn_eps_15mm_r_cropped.jpg" />
+    <Resource Include="Resources\CroppedImages\ss_schn_eps_30mm_r_cropped.jpg" />
+    <Resource Include="Resources\CroppedImages\ss_schn_eps_35mm_r_cropped.jpg" />
+    <Resource Include="Resources\CroppedImages\ss_schn_gutex_thermofloor_r_cropped.jpg" />
+    <Resource Include="Resources\CroppedImages\ss_schn_isover_r_cropped.jpg" />
+    <Resource Include="Resources\CroppedImages\ss_schn_kerdi-line-sr_r_cropped.jpg" />
+    <Resource Include="Resources\CroppedImages\ss_schn_rockwoll-HP_r_cropped.jpg" />
+    <Resource Include="Resources\CroppedImages\ss_schn_rockwoll-te_r_cropped.jpg" />
+    <Resource Include="Resources\CroppedImages\ss_schn_thermowhite_55mm_r_cropped.jpg" />
+    <Resource Include="Resources\CroppedImages\ss_schn_thermowhite_60mm_r_cropped.jpg" />
+    <Resource Include="Resources\CroppedImages\ss_schn_thermowhite_70mm_r_cropped.jpg" />
+    <Resource Include="Resources\ss_schn_beton_r.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\ss_schn_bt_12fk_8mm_r.jpg" />
+    <Resource Include="Resources\ss_schn_bt_23f_estrich_20mm_r.jpg" />
+    <Resource Include="Resources\ss_schn_bt_23f_estrich_8mm_r.jpg" />
+    <Resource Include="Resources\ss_schn_bt_2520_estrich_20mm_r.jpg" />
+    <Resource Include="Resources\ss_schn_bt_2520_estrich_8mm_r.jpg" />
+    <Resource Include="Resources\ss_schn_bt_ditra25_kleber_1mm_r.jpg" />
+    <Resource Include="Resources\ss_schn_bt_ditra_heat_kleber_2mm_r.jpg" />
+    <Resource Include="Resources\ss_schn_bt_fliesen_kleber_3mm_r.jpg" />
+    <Resource Include="Resources\ss_schn_cemwood_r.jpg" />
+    <Resource Include="Resources\ss_schn_eps_15mm_r.jpg" />
+    <Resource Include="Resources\ss_schn_eps_30mm_r.jpg" />
+    <Resource Include="Resources\ss_schn_eps_35mm_r.jpg" />
+    <Resource Include="Resources\ss_schn_gutex_thermofloor_r.jpg" />
+    <Resource Include="Resources\ss_schn_isover_r.jpg" />
+    <Resource Include="Resources\ss_schn_kerdi-line-sr_r.jpg" />
+    <Resource Include="Resources\ss_schn_rockwoll-HP_r.jpg" />
+    <Resource Include="Resources\ss_schn_rockwoll-te_r.jpg" />
+    <Resource Include="Resources\ss_schn_thermowhite_55mm_r.jpg" />
+    <Resource Include="Resources\ss_schn_thermowhite_60mm_r.jpg" />
+    <Resource Include="Resources\ss_schn_thermowhite_70mm_r.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
