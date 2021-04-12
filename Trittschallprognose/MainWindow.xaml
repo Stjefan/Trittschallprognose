@@ -83,5 +83,41 @@
                 <Image Source="{Binding SelectedEinzelelement.Bild}" Grid.Column="1"/>
             </Grid>
         </TabItem>
+        <TabItem Header="Development 3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <ComboBox ItemsSource="{Binding SchichtA}" SelectedItem="{Binding SchichtA_Element, Mode=TwoWay}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Bezeichnung}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <ComboBox ItemsSource="{Binding SchichtB}" SelectedItem="{Binding SchichtB_Element, Mode=TwoWay}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Bezeichnung}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <ComboBox ItemsSource="{Binding SchichtC}" SelectedItem="{Binding SchichtC_Element, Mode=TwoWay}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Bezeichnung}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <Image Source="{Binding SchichtA_Element.Bild}" Grid.Column="1"/>
+                    <Image Source="{Binding SchichtB_Element.Bild}" Grid.Column="1"/>
+                    <Image Source="{Binding SchichtC_Element.Bild}" Grid.Column="1"/>
+                </StackPanel>
+            </Grid>
+        </TabItem>
     </TabControl>
 </Window>

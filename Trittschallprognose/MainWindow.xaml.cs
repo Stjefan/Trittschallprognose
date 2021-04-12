@@ -80,6 +80,9 @@ namespace Trittschallprognose
         public Einzelelement SelectedEinzelelement { get => selectedEinzelelement; set { selectedEinzelelement = value; NotifyPropertyChanged(); } }
         private BitmapImage myImage;
         private Einzelelement selectedEinzelelement;
+        private Einzelelement schichtC_Element;
+        private Einzelelement schichtB_Element;
+        private Einzelelement schichtA_Element;
 
         public BitmapImage MyImage { get => myImage; set { myImage = value; NotifyPropertyChanged(); } }
 
@@ -94,6 +97,15 @@ namespace Trittschallprognose
         public Schalldaemmung Schalldaemmung { get; set; }
         public int DevlopmentDouble { get => devlopmentDouble; set { devlopmentDouble = value; NotifyPropertyChanged(); } }
 
+
+        public ObservableCollection<Einzelelement> SchichtA { get; set; }
+
+        public Einzelelement SchichtA_Element { get => schichtA_Element; set { schichtA_Element = value; NotifyPropertyChanged(); } }
+        public ObservableCollection<Einzelelement> SchichtB { get; set; }
+        public Einzelelement SchichtB_Element { get => schichtB_Element; set { schichtB_Element = value; NotifyPropertyChanged(); } }
+
+        public ObservableCollection<Einzelelement> SchichtC { get; set; }
+        public Einzelelement SchichtC_Element { get => schichtC_Element; set { schichtC_Element = value; NotifyPropertyChanged(); } }
         private void ErstelleEinzelelmente()
         {
             Einzelelemente = new ObservableCollection<Einzelelement>()
@@ -119,6 +131,32 @@ namespace Trittschallprognose
                 new Einzelelement("Thermowhite (55 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_55mm_r_cropped.jpg"), 55),
                 new Einzelelement("Thermowhite (60 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_60mm_r_cropped.jpg"), 60),
                 new Einzelelement("Thermowhite (70 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_70mm_r_cropped.jpg"), 70),
+            };
+
+            SchichtA = new ObservableCollection<Einzelelement>()
+            {
+                new Einzelelement("Thermowhite (55 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_55mm_r_cropped.jpg"), 55),
+                new Einzelelement("Thermowhite (60 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_60mm_r_cropped.jpg"), 60),
+                new Einzelelement("Thermowhite (70 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_70mm_r_cropped.jpg"), 70),
+            };
+
+            SchichtB = new ObservableCollection<Einzelelement>()
+            {
+                new Einzelelement("BT 12fk (8 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_12fk_8mm_r_cropped.jpg"), 8),
+                new Einzelelement("BT 23f Estrich (20 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_23f_estrich_20mm_r_cropped.jpg"), 20),
+                new Einzelelement("BT 23f Estrich (8 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_23f_estrich_8mm_r_cropped.jpg"), 8),
+                new Einzelelement("BT 2520 Estrich (20 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_2520_estrich_20mm_r_cropped.jpg"), 20),
+                new Einzelelement("BT 2520 Estrich (8 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_2520_estrich_8mm_r_cropped.jpg"), 8),
+                new Einzelelement("BT Ditra Heat Kleber (2 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_ditra_heat_kleber_2mm_r_cropped.jpg"), 2),
+                new Einzelelement("BT Ditra25 Kleber (1 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_ditra25_kleber_1mm_r_cropped.jpg"), 1),
+                new Einzelelement("BT Fliesenkleber (3 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_fliesen_kleber_3mm_r_cropped.jpg"), 3),
+            };
+
+            SchichtC = new ObservableCollection<Einzelelement>()
+            {
+                new Einzelelement("EPS (15 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_15mm_r_cropped.jpg"), 15),
+                new Einzelelement("EPS (30 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_30mm_r_cropped.jpg"), 30),
+                new Einzelelement("EPS (35 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_35mm_r_cropped.jpg"), 35),
             };
         }
 
