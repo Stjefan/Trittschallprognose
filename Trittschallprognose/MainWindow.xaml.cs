@@ -106,6 +106,20 @@ namespace Trittschallprognose
 
         public ObservableCollection<Einzelelement> SchichtC { get; set; }
         public Einzelelement SchichtC_Element { get => schichtC_Element; set { schichtC_Element = value; NotifyPropertyChanged(); } }
+
+        public ObservableCollection<Einzelelement> Bekotec { get; set; }
+
+
+
+        public ObservableCollection<Einzelelement> Bekotec_23f { get; set; }
+        public ObservableCollection<Einzelelement> Bekotec_2520 { get; set; }
+
+        public ObservableCollection<Einzelelement> Schlueter { get; set; }
+
+        public ObservableCollection<Einzelelement> DaemmungA { get; set; }
+        public ObservableCollection<Einzelelement> DaemmungB { get; set; }
+        public ObservableCollection<Einzelelement> DaemmungC { get; set; }
+
         private void ErstelleEinzelelmente()
         {
             Einzelelemente = new ObservableCollection<Einzelelement>()
@@ -142,11 +156,7 @@ namespace Trittschallprognose
 
             SchichtB = new ObservableCollection<Einzelelement>()
             {
-                new Einzelelement("BT 12fk (8 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_12fk_8mm_r_cropped.jpg"), 8),
-                new Einzelelement("BT 23f Estrich (20 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_23f_estrich_20mm_r_cropped.jpg"), 20),
-                new Einzelelement("BT 23f Estrich (8 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_23f_estrich_8mm_r_cropped.jpg"), 8),
-                new Einzelelement("BT 2520 Estrich (20 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_2520_estrich_20mm_r_cropped.jpg"), 20),
-                new Einzelelement("BT 2520 Estrich (8 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_2520_estrich_8mm_r_cropped.jpg"), 8),
+                
                 new Einzelelement("BT Ditra Heat Kleber (2 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_ditra_heat_kleber_2mm_r_cropped.jpg"), 2),
                 new Einzelelement("BT Ditra25 Kleber (1 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_ditra25_kleber_1mm_r_cropped.jpg"), 1),
                 new Einzelelement("BT Fliesenkleber (3 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_fliesen_kleber_3mm_r_cropped.jpg"), 3),
@@ -158,6 +168,64 @@ namespace Trittschallprognose
                 new Einzelelement("EPS (30 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_30mm_r_cropped.jpg"), 30),
                 new Einzelelement("EPS (35 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_35mm_r_cropped.jpg"), 35),
             };
+
+            Bekotec = new ObservableCollection<Einzelelement>()
+            {
+                new Einzelelement("BT 12fk (8 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_12fk_8mm_r_cropped.jpg"), 8),
+                new Einzelelement("BT 23f Estrich (20 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_23f_estrich_20mm_r_cropped.jpg"), 20),
+                new Einzelelement("BT 23f Estrich (8 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_23f_estrich_8mm_r_cropped.jpg"), 8),
+                new Einzelelement("BT 2520 Estrich (20 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_2520_estrich_20mm_r_cropped.jpg"), 20),
+                new Einzelelement("BT 2520 Estrich (8 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_2520_estrich_8mm_r_cropped.jpg"), 8),
+            };
+
+            DaemmungA = new ObservableCollection<Einzelelement>()
+            {
+                 new Einzelelement("Cemwood", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_cemwood_r_cropped.jpg"), null),
+                new Einzelelement("EPS (15 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_15mm_r_cropped.jpg"), 15),
+                new Einzelelement("EPS (30 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_30mm_r_cropped.jpg"), 30),
+                new Einzelelement("EPS (35 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_35mm_r_cropped.jpg"), 35),
+                new Einzelelement("Gutex Thermofloor", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_gutex_thermofloor_r_cropped.jpg"), null),
+                new Einzelelement("Isover", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_isover_r_cropped.jpg"), null),
+                new Einzelelement("Kerdi-Line-SR", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_kerdi-line-sr_r_cropped.jpg"), null),
+                new Einzelelement("Rockwoll-HP", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_rockwoll-HP_r_cropped.jpg"), null),
+                new Einzelelement("Rockwoll-te", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_rockwoll-te_r_cropped.jpg"), null),
+                new Einzelelement("Thermowhite (55 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_55mm_r_cropped.jpg"), 55),
+                new Einzelelement("Thermowhite (60 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_60mm_r_cropped.jpg"), 60),
+                new Einzelelement("Thermowhite (70 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_70mm_r_cropped.jpg"), 70),
+            };
+
+            DaemmungB = new ObservableCollection<Einzelelement>()
+            {
+                 new Einzelelement("Cemwood", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_cemwood_r_cropped.jpg"), null),
+                new Einzelelement("EPS (15 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_15mm_r_cropped.jpg"), 15),
+                new Einzelelement("EPS (30 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_30mm_r_cropped.jpg"), 30),
+                new Einzelelement("EPS (35 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_35mm_r_cropped.jpg"), 35),
+                new Einzelelement("Gutex Thermofloor", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_gutex_thermofloor_r_cropped.jpg"), null),
+                new Einzelelement("Isover", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_isover_r_cropped.jpg"), null),
+                new Einzelelement("Kerdi-Line-SR", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_kerdi-line-sr_r_cropped.jpg"), null),
+                new Einzelelement("Rockwoll-HP", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_rockwoll-HP_r_cropped.jpg"), null),
+                new Einzelelement("Rockwoll-te", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_rockwoll-te_r_cropped.jpg"), null),
+                new Einzelelement("Thermowhite (55 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_55mm_r_cropped.jpg"), 55),
+                new Einzelelement("Thermowhite (60 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_60mm_r_cropped.jpg"), 60),
+                new Einzelelement("Thermowhite (70 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_70mm_r_cropped.jpg"), 70),
+            };
+
+            DaemmungC = new ObservableCollection<Einzelelement>()
+            {
+                 new Einzelelement("Cemwood", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_cemwood_r_cropped.jpg"), null),
+                new Einzelelement("EPS (15 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_15mm_r_cropped.jpg"), 15),
+                new Einzelelement("EPS (30 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_30mm_r_cropped.jpg"), 30),
+                new Einzelelement("EPS (35 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_35mm_r_cropped.jpg"), 35),
+                new Einzelelement("Gutex Thermofloor", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_gutex_thermofloor_r_cropped.jpg"), null),
+                new Einzelelement("Isover", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_isover_r_cropped.jpg"), null),
+                new Einzelelement("Kerdi-Line-SR", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_kerdi-line-sr_r_cropped.jpg"), null),
+                new Einzelelement("Rockwoll-HP", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_rockwoll-HP_r_cropped.jpg"), null),
+                new Einzelelement("Rockwoll-te", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_rockwoll-te_r_cropped.jpg"), null),
+                new Einzelelement("Thermowhite (55 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_55mm_r_cropped.jpg"), 55),
+                new Einzelelement("Thermowhite (60 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_60mm_r_cropped.jpg"), 60),
+                new Einzelelement("Thermowhite (70 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_70mm_r_cropped.jpg"), 70),
+            };
+
         }
 
         public Schalldaten()
@@ -404,28 +472,28 @@ namespace Trittschallprognose
         public ImageCollection()
         {
             
-            Bitmap source = new Bitmap(@"C:\Users\stsch\source\repos\Trittschallprognose\Trittschallprognose\Resources/ss_schn_bt_23f_estrich_20mm_r.jpg");
-            Rectangle section = new Rectangle(0, 460, 734, 497 - 460);
+            //Bitmap source = new Bitmap(@"C:\Users\stsch\source\repos\Trittschallprognose\Trittschallprognose\Resources/ss_schn_bt_23f_estrich_20mm_r.jpg");
+            //Rectangle section = new Rectangle(0, 460, 734, 497 - 460);
 
-            Bitmap CroppedImage = CropImage(source, section);
+            //Bitmap CroppedImage = CropImage(source, section);
 
-            Estrich23f_20mm = ToBitmapImage(CroppedImage);
-
-
-            Bitmap source_Ditra_heat = new Bitmap(@"C:\Users\stsch\source\repos\Trittschallprognose\Trittschallprognose\Resources/ss_schn_bt_ditra_heat_kleber_2mm_r.jpg");
-            Rectangle section_Ditra_heat = new Rectangle(0, 400, 734, 497 - 450);
-
-            Bitmap croppedImage_Ditra_heat = CropImage(source_Ditra_heat, section_Ditra_heat);
-
-            Ditra_heat_kleber_2mm = ToBitmapImage(croppedImage_Ditra_heat);
+            //Estrich23f_20mm = ToBitmapImage(CroppedImage);
 
 
-            Bitmap source_EPS_30mm = new Bitmap(@"C:\Users\stsch\source\repos\Trittschallprognose\Trittschallprognose\Resources/ss_schn_eps_30mm_r.jpg");
-            Rectangle section_EPS_30mm = new Rectangle(0, 450, 734, 497 - 450);
+            //Bitmap source_Ditra_heat = new Bitmap(@"C:\Users\stsch\source\repos\Trittschallprognose\Trittschallprognose\Resources/ss_schn_bt_ditra_heat_kleber_2mm_r.jpg");
+            //Rectangle section_Ditra_heat = new Rectangle(0, 400, 734, 497 - 450);
 
-            Bitmap croppedImage_EPS_30mm = CropImage(source_EPS_30mm, section_EPS_30mm);
+            //Bitmap croppedImage_Ditra_heat = CropImage(source_Ditra_heat, section_Ditra_heat);
 
-            EPS_30mm = ToBitmapImage(croppedImage_EPS_30mm);
+            //Ditra_heat_kleber_2mm = ToBitmapImage(croppedImage_Ditra_heat);
+
+
+            //Bitmap source_EPS_30mm = new Bitmap(@"C:\Users\stsch\source\repos\Trittschallprognose\Trittschallprognose\Resources/ss_schn_eps_30mm_r.jpg");
+            //Rectangle section_EPS_30mm = new Rectangle(0, 450, 734, 497 - 450);
+
+            //Bitmap croppedImage_EPS_30mm = CropImage(source_EPS_30mm, section_EPS_30mm);
+
+            //EPS_30mm = ToBitmapImage(croppedImage_EPS_30mm);
 
         }
 
@@ -457,4 +525,52 @@ namespace Trittschallprognose
         }
     }
 
+
+    public class Treppenaufbau_130421
+    {
+
+    }
+
+    public class Bekotec_130421
+    {
+        public ObservableCollection<Einzelelement> Bekotecelemente { get; set; }
+
+        public Einzelelement Bekotec { get; set; }
+
+        public string Schichtbezeichnung { get; set; } = "Bekotec";
+    }
+
+    public class Ditra_130421
+    {
+        public ObservableCollection<Einzelelement> Ditraelemente { get; set; }
+
+        public Einzelelement Ditra { get; set; }
+
+        public string Schichtbezeichnung { get; set; } = "Ditra";
+    }
+
+    public class Daemmung_130421
+    {
+        public Einzelelement DaemmungA { get; set; }
+
+        public Einzelelement DaemmungB { get; set; }
+
+        public Einzelelement DaemmungC { get; set; }
+
+        public ObservableCollection<Einzelelement> Daemmungselemente { get; set; }
+
+        public string Schichtbezeichnung { get; set; } = "Dämmung";
+
+    }
+
+    public class Fliese_130421
+    {
+        public string Schichtbezeichnung { get; set; } = "Dämmung";
+    }
+
+
+    public class Beton_130421
+    {
+        public string Schichtbezeichnung { get; set; } = "Beton";
+    }
 }
