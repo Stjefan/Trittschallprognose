@@ -10,6 +10,9 @@
     <Window.DataContext>
         <local:Schalldaten></local:Schalldaten>
     </Window.DataContext>
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Window.Resources>
     <TabControl>
         <TabItem Header="Aufbau">
             <Grid>
@@ -83,105 +86,123 @@
                 <Image Source="{Binding SelectedEinzelelement.Bild}" Grid.Column="1"/>
             </Grid>
         </TabItem>
-        <TabItem Header="Development 3">
+        <TabItem Header="Version 20/04/21">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0">
-                    <ComboBox ItemsSource="{Binding SchichtA}" SelectedItem="{Binding SchichtA_Element, Mode=TwoWay}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Bezeichnung}"/>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                    <ComboBox ItemsSource="{Binding SchichtB}" SelectedItem="{Binding SchichtB_Element, Mode=TwoWay}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Bezeichnung}"/>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                    <ComboBox ItemsSource="{Binding SchichtC}" SelectedItem="{Binding SchichtC_Element, Mode=TwoWay}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Bezeichnung}"/>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
+                <StackPanel Grid.Column="0" >
+                    <Grid DataContext="{Binding Fliesenschicht}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <CheckBox IsChecked="{Binding Vorhanden, Mode=TwoWay}"/>
+                        <ComboBox Grid.Column="1" ItemsSource="{Binding MoeglicheElemente}" SelectedItem="{Binding GewaehltesElement, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Bezeichnung}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </Grid>
+                    <Grid DataContext="{Binding Bekotecschicht}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <CheckBox IsChecked="{Binding Vorhanden, Mode=TwoWay}"/>
+                        <ComboBox Grid.Column="1" ItemsSource="{Binding MoeglicheElemente}" SelectedItem="{Binding GewaehltesElement, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Bezeichnung}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </Grid>
+                    <Grid DataContext="{Binding Ditraschicht}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <CheckBox IsChecked="{Binding Vorhanden, Mode=TwoWay}"/>
+                        <ComboBox Grid.Column="1" ItemsSource="{Binding MoeglicheElemente}" SelectedItem="{Binding GewaehltesElement, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Bezeichnung}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </Grid>
+                    <Grid DataContext="{Binding Daemmungschicht}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <CheckBox Grid.Row="0" IsChecked="{Binding VorhandenA, Mode=TwoWay}"/>
+                        <ComboBox Grid.Column="1" ItemsSource="{Binding MoeglicheElemente}" SelectedItem="{Binding GewaehltesElementA, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Bezeichnung}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <CheckBox Grid.Row="1" IsChecked="{Binding VorhandenB, Mode=TwoWay}"/>
+                        <ComboBox Grid.Column="1" ItemsSource="{Binding MoeglicheElemente}" SelectedItem="{Binding GewaehltesElementB, Mode=TwoWay}" Grid.Row="1">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Bezeichnung}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <CheckBox Grid.Row="2" IsChecked="{Binding VorhandenC, Mode=TwoWay}"/>
+                        <ComboBox Grid.Column="1" ItemsSource="{Binding MoeglicheElemente}" SelectedItem="{Binding GewaehltesElementC, Mode=TwoWay}" Grid.Row="2">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Bezeichnung}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </Grid>
+                    <Grid DataContext="{Binding Betonschicht}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <CheckBox IsChecked="{Binding Vorhanden, Mode=TwoWay}"/>
+                        <ComboBox Grid.Column="1" ItemsSource="{Binding MoeglicheElemente}" SelectedItem="{Binding GewaehltesElement, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Bezeichnung}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </Grid>
+                    <Button Content="Berechne Trittschallpegel" Margin="20" Command="{Binding Auswertung.BerechnePrognositiziertenPegel}"></Button>
                 </StackPanel>
                 <StackPanel Grid.Column="1">
-                    <Image Source="{Binding SchichtA_Element.Bild}" Grid.Column="1"/>
-                    <Image Source="{Binding SchichtB_Element.Bild}" Grid.Column="1"/>
-                    <Image Source="{Binding SchichtC_Element.Bild}" Grid.Column="1"/>
+                    <Image Source="{Binding Fliesenschicht.GewaehltesElement.Bild}" Grid.Column="1" Visibility="{Binding Fliesenschicht.Vorhanden, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    <Image Source="{Binding Bekotecschicht.GewaehltesElement.Bild}" Grid.Column="1" Visibility="{Binding Bekotecschicht.Vorhanden, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    <Image Source="{Binding Ditraschicht.GewaehltesElement.Bild}" Grid.Column="1" Visibility="{Binding Ditraschicht.Vorhanden, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    <Image Source="{Binding Daemmungschicht.GewaehltesElementA.Bild}" Grid.Column="1" Visibility="{Binding Daemmungschicht.VorhandenA, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    <Image Source="{Binding Daemmungschicht.GewaehltesElementB.Bild}" Grid.Column="1" Visibility="{Binding Daemmungschicht.VorhandenB, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    <Image Source="{Binding Daemmungschicht.GewaehltesElementC.Bild}" Grid.Column="1" Visibility="{Binding Daemmungschicht.VorhandenC, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    <Image Source="{Binding Betonschicht.GewaehltesElement.Bild}" Grid.Column="1" Visibility="{Binding Betonschicht.Vorhanden, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                </StackPanel>
+                <StackPanel  Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Orientation="Horizontal">
+                    <TextBlock FontSize="20">L'<Run BaselineAlignment="Subscript" FontSize="12">n, w, R</Run></TextBlock>
+                    <TextBlock FontSize="20" Text="&lt;" Margin="10,0,0,0"/>
+                    <TextBlock FontSize="20" Text="{Binding Auswertung.PrognostizierterPegel, StringFormat={}{0:F1}}" Margin="10,0,0,0"/>
                 </StackPanel>
             </Grid>
-        </TabItem>
-        <TabItem Header="Development 4">
-            <StackPanel>
-                <local:DefaultSchichtView Schichtbezeichnung="Fliese"/>
-                <local:DefaultSchichtView Schichtbezeichnung="Bekotec"/>
-                <local:DefaultSchichtView Schichtbezeichnung="Schlüter"/>
-                <local:DaemmungView></local:DaemmungView>
-                <local:DefaultSchichtView Schichtbezeichnung="Beton"/>
-            </StackPanel>
-            <!--
-            <StackPanel>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Fliese"></TextBlock>
-                    <ComboBox Grid.Column="1"/>
-                </Grid>
-
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Ditra / Estrich"></TextBlock>
-                    <ComboBox Grid.Column="1"/>
-                </Grid>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Bekotec"></TextBlock>
-                    <ComboBox Grid.Column="1"/>
-                </Grid>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <TextBlock Text="Dämmung"></TextBlock>
-                    <ComboBox Grid.Column="2" Grid.Row="0"/>
-                    <ComboBox Grid.Column="2" Grid.Row="1"/>
-                    <ComboBox Grid.Column="2" Grid.Row="2"/>
-                    <CheckBox Grid.Row="0" Grid.Column="1"/>
-                    <CheckBox Grid.Row="1" Grid.Column="1"/>
-                    <CheckBox Grid.Row="2" Grid.Column="1"/>
-                    <TextBlock Text="Dicke:" Grid.Column="4"/>
-                </Grid>
-                <TextBlock Text="Stahlbeton"></TextBlock>
-            </StackPanel>
-            -->
         </TabItem>
     </TabControl>
 </Window>

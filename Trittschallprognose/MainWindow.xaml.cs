@@ -120,8 +120,23 @@ namespace Trittschallprognose
         public ObservableCollection<Einzelelement> DaemmungB { get; set; }
         public ObservableCollection<Einzelelement> DaemmungC { get; set; }
 
+        public string DevelopmentProp { get; set; } = "Waltraud";
+
+        public SchichtDefaultViewModel Betonschicht { get; set; }
+        public SchichtDefaultViewModel Fliesenschicht { get; set; }
+        public SchichtDefaultViewModel Ditraschicht { get; set; }
+        public SchichtDefaultViewModel Bekotecschicht { get; set; }
+        public SchichtDaemmungViewModel Daemmungschicht { get; set; }
+
+        public Auswertung Auswertung { get; set; }
+        public ICommand ErstelleAuswertungCommand { get; set; }
+
+
         private void ErstelleEinzelelmente()
         {
+
+            
+
             Einzelelemente = new ObservableCollection<Einzelelement>()
             {
                 new Einzelelement("Stahlbeton", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_beton_r_cropped.jpg"), null),
@@ -231,6 +246,7 @@ namespace Trittschallprognose
         public Schalldaten()
         {
 
+            Auswertung = new Auswertung();
 
             ErstelleEinzelelmente();
             Fliese = new Fliese() { Bild = new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_fliesen_kleber_3mm_r_cropped.jpg") };
@@ -240,7 +256,31 @@ namespace Trittschallprognose
             Daemmung = new Daemmung() { Bild = new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_30mm_r_cropped.jpg") };
             Schalldaemmung = new Schalldaemmung() { Bild = new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_rockwoll-te_r_cropped.jpg") };
 
+            Betonschicht = new SchichtDefaultViewModel(new ObservableCollection<Einzelelement>() { new Einzelelement("Stahlbeton", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_beton_r_cropped.jpg"), null), });
+            Fliesenschicht = new SchichtDefaultViewModel(Bekotec);
+            Ditraschicht = new SchichtDefaultViewModel(new ObservableCollection<Einzelelement>()
+            {
 
+                new Einzelelement("BT Ditra Heat Kleber (2 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_ditra_heat_kleber_2mm_r_cropped.jpg"), 2),
+                new Einzelelement("BT Ditra25 Kleber (1 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_ditra25_kleber_1mm_r_cropped.jpg"), 1),
+                new Einzelelement("BT Fliesenkleber (3 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_fliesen_kleber_3mm_r_cropped.jpg"), 3),
+            });
+            Bekotecschicht = new SchichtDefaultViewModel(Bekotec);
+            Daemmungschicht = new SchichtDaemmungViewModel(new ObservableCollection<Einzelelement>()
+            {
+                 new Einzelelement("Cemwood", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_cemwood_r_cropped.jpg"), null),
+                new Einzelelement("EPS (15 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_15mm_r_cropped.jpg"), 15),
+                new Einzelelement("EPS (30 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_30mm_r_cropped.jpg"), 30),
+                new Einzelelement("EPS (35 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_35mm_r_cropped.jpg"), 35),
+                new Einzelelement("Gutex Thermofloor", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_gutex_thermofloor_r_cropped.jpg"), null),
+                new Einzelelement("Isover", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_isover_r_cropped.jpg"), null),
+                new Einzelelement("Kerdi-Line-SR", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_kerdi-line-sr_r_cropped.jpg"), null),
+                new Einzelelement("Rockwoll-HP", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_rockwoll-HP_r_cropped.jpg"), null),
+                new Einzelelement("Rockwoll-te", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_rockwoll-te_r_cropped.jpg"), null),
+                new Einzelelement("Thermowhite (55 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_55mm_r_cropped.jpg"), 55),
+                new Einzelelement("Thermowhite (60 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_60mm_r_cropped.jpg"), 60),
+                new Einzelelement("Thermowhite (70 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_70mm_r_cropped.jpg"), 70),
+            });
 
 
             Treppenaufbau = new ObservableCollection<ABauelementTreppenaufbau>() {
@@ -266,7 +306,7 @@ namespace Trittschallprognose
 
             ModifyPicture(new Uri("pack://application:,,,/Resources/ss_schn_bt_12fk_8mm_r.jpg"), 458, "bt_12fk_8mm_cropped.jpg");
             */
-            ModifyPicture(new Uri("pack://application:,,,/Resources/ss_schn_bt_23f_estrich_20mm_r.jpg"), 399, "ss_schn_bt_23f_estrich_20mm_r_cropped.jpg");
+            // ModifyPicture(new Uri("pack://application:,,,/Resources/ss_schn_bt_23f_estrich_20mm_r.jpg"), 399, "ss_schn_bt_23f_estrich_20mm_r_cropped.jpg");
             /*
             ModifyPicture(new Uri("pack://application:,,,/Resources/ss_schn_bt_23f_estrich_8mm_r.jpg"), 433, "ss_schn_bt_23f_estrich_8mm_r_cropped.jpg");
             ModifyPicture(new Uri("pack://application:,,,/Resources/ss_schn_bt_2520_estrich_20mm_r.jpg"), 352, "ss_schn_bt_2520_estrich_20mm_r_cropped.jpg");
@@ -287,6 +327,20 @@ namespace Trittschallprognose
             ModifyPicture(new Uri("pack://application:,,,/Resources/ss_schn_thermowhite_60mm_r.jpg"), 365, "ss_schn_thermowhite_60mm_r_cropped.jpg");
             ModifyPicture(new Uri("pack://application:,,,/Resources/ss_schn_thermowhite_70mm_r.jpg"), 339, "ss_schn_thermowhite_70mm_r_cropped.jpg");
             */
+
+
+            new DefaultCommand()
+            {
+                Action = new Action(() =>
+                {
+                    Auswertung = new Auswertung();
+                    Auswertung.ZugehoerigerAufbau = new ObservableCollection<Einzelelement>()
+                    {
+                        Ditraschicht.GewaehltesElement,
+                        Bekotecschicht.GewaehltesElement,
+                    };
+                })
+            };
         }
 
 
@@ -368,6 +422,11 @@ namespace Trittschallprognose
             Bezeichnung = bezeichnung;
             Dicke = dicke;
         }
+    }
+
+    public class EinzelelementVariableDicke : Einzelelement
+    {
+
     }
     public abstract class ABauelementTreppenaufbau
     {
@@ -530,7 +589,7 @@ namespace Trittschallprognose
     {
 
     }
-
+    /*
     public class Bekotec_130421
     {
         public ObservableCollection<Einzelelement> Bekotecelemente { get; set; }
@@ -572,5 +631,117 @@ namespace Trittschallprognose
     public class Beton_130421
     {
         public string Schichtbezeichnung { get; set; } = "Beton";
+    }
+    */
+    public class SchichtDefaultViewModel : INotifyPropertyChanged
+    {
+        public bool Vorhanden { get => vorhanden; set { vorhanden = value; NotifyPropertyChanged(); } }
+
+        private Einzelelement gewaehltesElement;
+        private bool vorhanden;
+
+        public string Schichtbezeichnung { get; set; }
+
+        public ObservableCollection<Einzelelement> MoeglicheElemente { get; set; }
+
+        public SchichtDefaultViewModel(ObservableCollection<Einzelelement> moeglicheElemente)
+        {
+            MoeglicheElemente = moeglicheElemente;
+        }
+
+        public Einzelelement GewaehltesElement { get => gewaehltesElement; set { gewaehltesElement = value; NotifyPropertyChanged(); } }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+    public class SchichtDaemmungViewModel : INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        public ObservableCollection<Einzelelement> MoeglicheElemente { get; set; }
+
+        public SchichtDaemmungViewModel(ObservableCollection<Einzelelement> moeglicheElemente)
+        {
+            MoeglicheElemente = moeglicheElemente;
+        }
+
+        private Einzelelement gewaehltesElementA;
+        private Einzelelement gewaehltesElementB;
+        private Einzelelement gewaehltesElementC;
+
+        private bool vorhandenA;
+        private bool vorhandenB;
+        private bool vorhandenC;
+        public Einzelelement GewaehltesElementA { get => gewaehltesElementA; set { gewaehltesElementA = value; NotifyPropertyChanged(); } }
+
+        public Einzelelement GewaehltesElementB { get => gewaehltesElementB; set { gewaehltesElementB = value; NotifyPropertyChanged(); } }
+
+        public Einzelelement GewaehltesElementC { get => gewaehltesElementC; set { gewaehltesElementC = value; NotifyPropertyChanged(); } }
+
+        public bool VorhandenA { get => vorhandenA; set { vorhandenA = value; NotifyPropertyChanged(); } }
+        public bool VorhandenB { get => vorhandenB; set { vorhandenB = value; NotifyPropertyChanged(); } }
+        public bool VorhandenC { get => vorhandenC; set { vorhandenC = value; NotifyPropertyChanged(); } }
+
+
+    }
+    public class Auswertung : INotifyPropertyChanged
+    {
+        private double prognostizierterPegel;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+
+        public ObservableCollection<Einzelelement> ZugehoerigerAufbau { get; set; }
+
+        public double PrognostizierterPegel { get => prognostizierterPegel; set { prognostizierterPegel = value; NotifyPropertyChanged(); } }
+
+        public ICommand BerechnePrognositiziertenPegel { get; set; }
+
+
+        private Random r = new Random();
+        public Auswertung()
+        {
+            BerechnePrognositiziertenPegel = new DefaultCommand()
+            {
+                Action = new Action(() =>
+                {
+                    PrognostizierterPegel = r.NextDouble() * 100;
+                    ZugehoerigerAufbau = new ObservableCollection<Einzelelement>();
+                })
+            };
+        }
+    }
+
+    public class AuswertungMitError
+    {
+
+    }
+
+    public class DefaultCommand : ICommand
+    {
+        public event EventHandler CanExecuteChanged;
+
+        public bool CanExecute(object parameter)
+        {
+            return true;
+        }
+
+        public void Execute(object parameter)
+        {
+            Action?.Invoke();
+        }
+
+        public Action Action { get; set; }
     }
 }

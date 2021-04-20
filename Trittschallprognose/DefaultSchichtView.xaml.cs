@@ -30,12 +30,20 @@ namespace Trittschallprognose
             set { SetValue(SchichtbezeichnungProperty, value); }
         }
 
+        public string[] Auswahlmoeglichkeiten { get; set; }
+        public string Auswahl { get; set; }
 
         public DefaultSchichtView()
         {
+            Auswahlmoeglichkeiten = new string[]{ "A", "B", "C"};
             InitializeComponent();
-            DataContext = this;
+            
         }
+
+    }
+
+    public class DefaultSchichtViewModel
+    {
 
     }
 }
