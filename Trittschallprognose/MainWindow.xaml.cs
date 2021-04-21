@@ -35,32 +35,6 @@ namespace Trittschallprognose
             InitializeComponent();
         }
 
-        private void Label1_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            Label lblFrom = e.Source as Label;
-
-            if (e.LeftButton == MouseButtonState.Pressed)
-                DragDrop.DoDragDrop(lblFrom, lblFrom.Content, DragDropEffects.Copy);
-        }
-
-        private void Label1_QueryContinueDrag(object sender, QueryContinueDragEventArgs e)
-        {
-            Label lblFrom = e.Source as Label;
-
-            if (!e.KeyStates.HasFlag(DragDropKeyStates.LeftMouseButton))
-                lblFrom.Content = "...";
-        }
-
-        private void Label2_Drop(object sender, DragEventArgs e)
-        {
-            string draggedText = (string)e.Data.GetData(DataFormats.StringFormat);
-
-            Label toLabel = e.Source as Label;
-            (sender as Label).Content = draggedText;
-            // toLabel.Content = draggedText;
-        }
-    }
-
     public class Schalldaten : INotifyPropertyChanged
     {
         private int devlopmentDouble = 50;
@@ -256,7 +230,7 @@ namespace Trittschallprognose
             Daemmung = new Daemmung() { Bild = new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_30mm_r_cropped.jpg") };
             Schalldaemmung = new Schalldaemmung() { Bild = new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_rockwoll-te_r_cropped.jpg") };
 
-            Betonschicht = new SchichtDefaultViewModel(new ObservableCollection<Einzelelement>() { new Einzelelement("Stahlbeton", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_beton_r_cropped.jpg"), null), });
+            Betonschicht = new SchichtDefaultViewModel(new ObservableCollection<Einzelelement>() { new EinzelelementVariableDicke("Stahlbeton", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_beton_r_cropped.jpg"), null), });
             Fliesenschicht = new SchichtDefaultViewModel(Bekotec);
             Ditraschicht = new SchichtDefaultViewModel(new ObservableCollection<Einzelelement>()
             {
@@ -265,18 +239,25 @@ namespace Trittschallprognose
                 new Einzelelement("BT Ditra25 Kleber (1 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_ditra25_kleber_1mm_r_cropped.jpg"), 1),
                 new Einzelelement("BT Fliesenkleber (3 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_fliesen_kleber_3mm_r_cropped.jpg"), 3),
             });
-            Bekotecschicht = new SchichtDefaultViewModel(Bekotec);
+            Bekotecschicht = new SchichtDefaultViewModel(new ObservableCollection<Einzelelement>()
+            {
+                new Einzelelement("BT 12fk (8 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_12fk_8mm_r_cropped.jpg"), 8),
+                new Einzelelement("BT 23f Estrich (20 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_23f_estrich_20mm_r_cropped.jpg"), 20),
+                new Einzelelement("BT 23f Estrich (8 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_23f_estrich_8mm_r_cropped.jpg"), 8),
+                new Einzelelement("BT 2520 Estrich (20 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_2520_estrich_20mm_r_cropped.jpg"), 20),
+                new Einzelelement("BT 2520 Estrich (8 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_2520_estrich_8mm_r_cropped.jpg"), 8),
+            });
             Daemmungschicht = new SchichtDaemmungViewModel(new ObservableCollection<Einzelelement>()
             {
-                 new Einzelelement("Cemwood", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_cemwood_r_cropped.jpg"), null),
+                 new EinzelelementVariableDicke("Cemwood", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_cemwood_r_cropped.jpg"), null),
                 new Einzelelement("EPS (15 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_15mm_r_cropped.jpg"), 15),
                 new Einzelelement("EPS (30 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_30mm_r_cropped.jpg"), 30),
                 new Einzelelement("EPS (35 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_35mm_r_cropped.jpg"), 35),
-                new Einzelelement("Gutex Thermofloor", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_gutex_thermofloor_r_cropped.jpg"), null),
-                new Einzelelement("Isover", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_isover_r_cropped.jpg"), null),
-                new Einzelelement("Kerdi-Line-SR", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_kerdi-line-sr_r_cropped.jpg"), null),
-                new Einzelelement("Rockwoll-HP", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_rockwoll-HP_r_cropped.jpg"), null),
-                new Einzelelement("Rockwoll-te", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_rockwoll-te_r_cropped.jpg"), null),
+                new EinzelelementVariableDicke("Gutex Thermofloor", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_gutex_thermofloor_r_cropped.jpg"), null),
+                new EinzelelementVariableDicke("Isover", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_isover_r_cropped.jpg"), null),
+                new EinzelelementVariableDicke("Kerdi-Line-SR", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_kerdi-line-sr_r_cropped.jpg"), null),
+                new EinzelelementVariableDicke("Rockwoll-HP", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_rockwoll-HP_r_cropped.jpg"), null),
+                new EinzelelementVariableDicke("Rockwoll-te", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_rockwoll-te_r_cropped.jpg"), null),
                 new Einzelelement("Thermowhite (55 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_55mm_r_cropped.jpg"), 55),
                 new Einzelelement("Thermowhite (60 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_60mm_r_cropped.jpg"), 60),
                 new Einzelelement("Thermowhite (70 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_70mm_r_cropped.jpg"), 70),
@@ -426,7 +407,9 @@ namespace Trittschallprognose
 
     public class EinzelelementVariableDicke : Einzelelement
     {
-
+        public EinzelelementVariableDicke(string bezeichnung, Uri bild, int? dicke) : base(bezeichnung, bild, dicke)
+        {
+        }
     }
     public abstract class ABauelementTreppenaufbau
     {
@@ -670,6 +653,7 @@ namespace Trittschallprognose
         public SchichtDaemmungViewModel(ObservableCollection<Einzelelement> moeglicheElemente)
         {
             MoeglicheElemente = moeglicheElemente;
+            SchichtA = new SchichtDefaultViewModel(moeglicheElemente);
         }
 
         private Einzelelement gewaehltesElementA;
@@ -689,7 +673,7 @@ namespace Trittschallprognose
         public bool VorhandenB { get => vorhandenB; set { vorhandenB = value; NotifyPropertyChanged(); } }
         public bool VorhandenC { get => vorhandenC; set { vorhandenC = value; NotifyPropertyChanged(); } }
 
-
+        public SchichtDefaultViewModel SchichtA { get; set; }
     }
     public class Auswertung : INotifyPropertyChanged
     {

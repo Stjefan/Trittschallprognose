@@ -14,62 +14,6 @@
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Window.Resources>
     <TabControl>
-        <TabItem Header="Aufbau">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <ListBox ItemsSource="{Binding Treppenaufbau}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <CheckBox VerticalAlignment="Center"></CheckBox>
-                                <Label Content="{Binding Typbezeichnung}" Width="250"/>
-                                <Label Content="Produkt:" ></Label>
-                                <ComboBox Padding="10,0,0,0" Width="100" ></ComboBox>
-                                <Label Content="Dicke:" Margin="10,0,0,0"></Label>
-                                <ComboBox ItemsSource="{Binding MoeglicheDicken}" Width="50"></ComboBox>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-                
-            </Grid>
-        </TabItem>
-        <TabItem Header="Ergebnis">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="3*"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0">
-                    <!--<Image Source=".\Resources\ss_schn_beton_r.jpg" Stretch="None">
-            </Image>
-            -->
-                    <Image Source=".\Resources\CroppedImages\ss_schn_bt_ditra25_kleber_1mm_r_cropped.jpg" Stretch="None"/>
-                    <Image Source=".\Resources\CroppedImages\ss_schn_bt_23f_estrich_20mm_r_cropped.jpg" Stretch="None"/>
-                    <Image Source=".\Resources\CroppedImages\ss_schn_bt_2520_estrich_8mm_r_cropped.jpg" Stretch="None"/>
-                    <Image Source=".\Resources\CroppedImages\ss_schn_bt_fliesen_kleber_3mm_r_cropped.jpg" Stretch="None"/>
-                    <Image Source=".\Resources\CroppedImages\ss_schn_beton_r_cropped.jpg" Stretch="None"/>
-                </StackPanel>
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Orientation="Horizontal">
-                    <TextBlock FontSize="20">L'<Run BaselineAlignment="Subscript" FontSize="12">n, w, R</Run></TextBlock>
-                    <TextBlock FontSize="20" Text="&lt;" Margin="10,0,0,0"/>
-                    <TextBlock FontSize="20" Text="72" Margin="10,0,0,0"/>
-                </StackPanel>
-            </Grid>
-        </TabItem>
-        <TabItem Header="Development">
-            <StackPanel>
-                <Image Source="{Binding Fliese.Bild}"/>
-                <Image Source="{Binding Estrich.Bild}"/>
-                <Image Source="{Binding Ditra.Bild}"/>
-                <Image Source="{Binding Schalldaemmung.Bild}"/>
-                <Image Source="{Binding Daemmung.Bild}"/>
-                <Image Source="{Binding Beton.Bild}"/>
-            </StackPanel>
-            
-        </TabItem>
         <TabItem Header="Development 2">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -87,6 +31,35 @@
             </Grid>
         </TabItem>
         <TabItem Header="Version 20/04/21">
+            <TabItem.Resources>
+                <DataTemplate DataType="{x:Type local:Einzelelement}">
+                    <TextBlock Text="Nothing here"/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type local:EinzelelementVariableDicke}">
+                    <StackPanel>
+                        <TextBlock Text="Dicke:"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+                
+                <DataTemplate DataType="{x:Type local:SchichtDefaultViewModel}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <CheckBox IsChecked="{Binding Vorhanden, Mode=TwoWay}"/>
+                        <ComboBox Grid.Column="1" ItemsSource="{Binding MoeglicheElemente}" SelectedItem="{Binding GewaehltesElement, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Bezeichnung}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <ContentControl Grid.Column="2" Content="{Binding GewaehltesElement}"/>
+                    </Grid>
+                </DataTemplate>
+            </TabItem.Resources>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -94,48 +67,9 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" >
-                    <Grid DataContext="{Binding Fliesenschicht}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <CheckBox IsChecked="{Binding Vorhanden, Mode=TwoWay}"/>
-                        <ComboBox Grid.Column="1" ItemsSource="{Binding MoeglicheElemente}" SelectedItem="{Binding GewaehltesElement, Mode=TwoWay}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Bezeichnung}"/>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                    </Grid>
-                    <Grid DataContext="{Binding Bekotecschicht}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <CheckBox IsChecked="{Binding Vorhanden, Mode=TwoWay}"/>
-                        <ComboBox Grid.Column="1" ItemsSource="{Binding MoeglicheElemente}" SelectedItem="{Binding GewaehltesElement, Mode=TwoWay}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Bezeichnung}"/>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                    </Grid>
-                    <Grid DataContext="{Binding Ditraschicht}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <CheckBox IsChecked="{Binding Vorhanden, Mode=TwoWay}"/>
-                        <ComboBox Grid.Column="1" ItemsSource="{Binding MoeglicheElemente}" SelectedItem="{Binding GewaehltesElement, Mode=TwoWay}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Bezeichnung}"/>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                    </Grid>
+                    <ContentControl Content="{Binding Fliesenschicht}"/>
+                    <ContentControl Content="{Binding Bekotecschicht}"/>
+                    <ContentControl Content="{Binding Ditraschicht}"/>
                     <Grid DataContext="{Binding Daemmungschicht}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -147,14 +81,15 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <CheckBox Grid.Row="0" IsChecked="{Binding VorhandenA, Mode=TwoWay}"/>
+                        <ContentControl Content="{Binding SchichtA}"/>
+                        <!--<CheckBox Grid.Row="0" IsChecked="{Binding VorhandenA, Mode=TwoWay}"/>
                         <ComboBox Grid.Column="1" ItemsSource="{Binding MoeglicheElemente}" SelectedItem="{Binding GewaehltesElementA, Mode=TwoWay}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Bezeichnung}"/>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
-                        </ComboBox>
+                        </ComboBox>-->
                         <CheckBox Grid.Row="1" IsChecked="{Binding VorhandenB, Mode=TwoWay}"/>
                         <ComboBox Grid.Column="1" ItemsSource="{Binding MoeglicheElemente}" SelectedItem="{Binding GewaehltesElementB, Mode=TwoWay}" Grid.Row="1">
                             <ComboBox.ItemTemplate>
@@ -172,20 +107,7 @@
                             </ComboBox.ItemTemplate>
                         </ComboBox>
                     </Grid>
-                    <Grid DataContext="{Binding Betonschicht}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <CheckBox IsChecked="{Binding Vorhanden, Mode=TwoWay}"/>
-                        <ComboBox Grid.Column="1" ItemsSource="{Binding MoeglicheElemente}" SelectedItem="{Binding GewaehltesElement, Mode=TwoWay}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Bezeichnung}"/>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                    </Grid>
+                    <ContentControl Content="{Binding Betonschicht}"/>
                     <Button Content="Berechne Trittschallpegel" Margin="20" Command="{Binding Auswertung.BerechnePrognositiziertenPegel}"></Button>
                 </StackPanel>
                 <StackPanel Grid.Column="1">
@@ -197,11 +119,29 @@
                     <Image Source="{Binding Daemmungschicht.GewaehltesElementC.Bild}" Grid.Column="1" Visibility="{Binding Daemmungschicht.VorhandenC, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     <Image Source="{Binding Betonschicht.GewaehltesElement.Bild}" Grid.Column="1" Visibility="{Binding Betonschicht.Vorhanden, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                 </StackPanel>
-                <StackPanel  Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Orientation="Horizontal">
-                    <TextBlock FontSize="20">L'<Run BaselineAlignment="Subscript" FontSize="12">n, w, R</Run></TextBlock>
-                    <TextBlock FontSize="20" Text="&lt;" Margin="10,0,0,0"/>
-                    <TextBlock FontSize="20" Text="{Binding Auswertung.PrognostizierterPegel, StringFormat={}{0:F1}}" Margin="10,0,0,0"/>
-                </StackPanel>
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0">
+                        <TextBlock>
+                            Der folgende Aufbau wurde berechnet:
+    <LineBreak />
+    Ich
+                            <LineBreak />
+                            am
+                            <LineBreak />
+                            Strand
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel  Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Orientation="Horizontal">
+                        <TextBlock FontSize="20">L'<Run BaselineAlignment="Subscript" FontSize="12">n, w, R</Run></TextBlock>
+                        <TextBlock FontSize="20" Text="&lt;" Margin="10,0,0,0"/>
+                        <TextBlock FontSize="20" Text="{Binding Auswertung.PrognostizierterPegel, StringFormat={}{0:F1}}" Margin="10,0,0,0"/>
+                    </StackPanel>
+                </Grid>
+                
             </Grid>
         </TabItem>
     </TabControl>
