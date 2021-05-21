@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Trittschallprognose"
         xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="Trittschalldämmung" Height="450" Width="800">
+        Title="Trittschallprognose" Height="450" Width="800">
     <Window.DataContext>
         <local:Schalldaten></local:Schalldaten>
     </Window.DataContext>
@@ -14,79 +14,8 @@
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Window.Resources>
     <TabControl>
-        <TabItem Header="Aufbau">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <ListBox ItemsSource="{Binding Treppenaufbau}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <CheckBox VerticalAlignment="Center"></CheckBox>
-                                <Label Content="{Binding Typbezeichnung}" Width="250"/>
-                                <Label Content="Produkt:" ></Label>
-                                <ComboBox Padding="10,0,0,0" Width="100" ></ComboBox>
-                                <Label Content="Dicke:" Margin="10,0,0,0"></Label>
-                                <ComboBox ItemsSource="{Binding MoeglicheDicken}" Width="50"></ComboBox>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-                
-            </Grid>
-        </TabItem>
-        <TabItem Header="Ergebnis">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="3*"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0">
-                    <!--<Image Source=".\Resources\ss_schn_beton_r.jpg" Stretch="None">
-            </Image>
-            -->
-                    <Image Source=".\Resources\CroppedImages\ss_schn_bt_ditra25_kleber_1mm_r_cropped.jpg" Stretch="None"/>
-                    <Image Source=".\Resources\CroppedImages\ss_schn_bt_23f_estrich_20mm_r_cropped.jpg" Stretch="None"/>
-                    <Image Source=".\Resources\CroppedImages\ss_schn_bt_2520_estrich_8mm_r_cropped.jpg" Stretch="None"/>
-                    <Image Source=".\Resources\CroppedImages\ss_schn_bt_fliesen_kleber_3mm_r_cropped.jpg" Stretch="None"/>
-                    <Image Source=".\Resources\CroppedImages\ss_schn_beton_r_cropped.jpg" Stretch="None"/>
-                </StackPanel>
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Orientation="Horizontal">
-                    <TextBlock FontSize="20">L'<Run BaselineAlignment="Subscript" FontSize="12">n, w, R</Run></TextBlock>
-                    <TextBlock FontSize="20" Text="&lt;" Margin="10,0,0,0"/>
-                    <TextBlock FontSize="20" Text="72" Margin="10,0,0,0"/>
-                </StackPanel>
-            </Grid>
-        </TabItem>
-        <TabItem Header="Development">
-            <StackPanel>
-                <Image Source="{Binding Fliese.Bild}"/>
-                <Image Source="{Binding Estrich.Bild}"/>
-                <Image Source="{Binding Ditra.Bild}"/>
-                <Image Source="{Binding Schalldaemmung.Bild}"/>
-                <Image Source="{Binding Daemmung.Bild}"/>
-                <Image Source="{Binding Beton.Bild}"/>
-            </StackPanel>
-            
-        </TabItem>
-        <TabItem Header="Development 2">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="4*"/>
-                </Grid.ColumnDefinitions>
-                <ListBox Grid.Column="0" ItemsSource="{Binding Einzelelemente}" SelectedItem="{Binding SelectedEinzelelement, Mode=TwoWay}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Bezeichnung}"/>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-                <Image Source="{Binding SelectedEinzelelement.Bild}" Grid.Column="1"/>
-            </Grid>
-        </TabItem>
-        <TabItem Header="Version 20/04/21">
+        
+        <TabItem Header="Editor (Version 28/04/21)">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -94,6 +23,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" >
+                    <TextBlock Text="Eingabe:"></TextBlock>
                     <Grid DataContext="{Binding Fliesenschicht}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -186,22 +116,94 @@
                             </ComboBox.ItemTemplate>
                         </ComboBox>
                     </Grid>
-                    <Button Content="Berechne Trittschallpegel" Margin="20" Command="{Binding Auswertung.BerechnePrognositiziertenPegel}"></Button>
+                    <Button Content="Berechne Trittschallpegel" Margin="20" Command="{Binding ErstelleAuswertungCommand}"></Button>
                 </StackPanel>
-                <StackPanel Grid.Column="1">
-                    <Image Source="{Binding Fliesenschicht.GewaehltesElement.Bild}" Grid.Column="1" Visibility="{Binding Fliesenschicht.Vorhanden, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                    <Image Source="{Binding Bekotecschicht.GewaehltesElement.Bild}" Grid.Column="1" Visibility="{Binding Bekotecschicht.Vorhanden, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                    <Image Source="{Binding Ditraschicht.GewaehltesElement.Bild}" Grid.Column="1" Visibility="{Binding Ditraschicht.Vorhanden, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                    <Image Source="{Binding Daemmungschicht.GewaehltesElementA.Bild}" Grid.Column="1" Visibility="{Binding Daemmungschicht.VorhandenA, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                    <Image Source="{Binding Daemmungschicht.GewaehltesElementB.Bild}" Grid.Column="1" Visibility="{Binding Daemmungschicht.VorhandenB, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                    <Image Source="{Binding Daemmungschicht.GewaehltesElementC.Bild}" Grid.Column="1" Visibility="{Binding Daemmungschicht.VorhandenC, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                    <Image Source="{Binding Betonschicht.GewaehltesElement.Bild}" Grid.Column="1" Visibility="{Binding Betonschicht.Vorhanden, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                </StackPanel>
-                <StackPanel  Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Orientation="Horizontal">
-                    <TextBlock FontSize="20">L'<Run BaselineAlignment="Subscript" FontSize="12">n, w, R</Run></TextBlock>
-                    <TextBlock FontSize="20" Text="&lt;" Margin="10,0,0,0"/>
-                    <TextBlock FontSize="20" Text="{Binding Auswertung.PrognostizierterPegel, StringFormat={}{0:F1}}" Margin="10,0,0,0"/>
-                </StackPanel>
+                <Grid Grid.Column="1" Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Schematischer Aufbau" Grid.Row="0" HorizontalAlignment="Center"/>
+                    <StackPanel Grid.Row="1" >
+                        <Image Source="{Binding Fliesenschicht.GewaehltesElement.Bild}" Grid.Column="1" Visibility="{Binding Fliesenschicht.Vorhanden, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        <Image Source="{Binding Bekotecschicht.GewaehltesElement.Bild}" Grid.Column="1" Visibility="{Binding Bekotecschicht.Vorhanden, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        <Image Source="{Binding Ditraschicht.GewaehltesElement.Bild}" Grid.Column="1" Visibility="{Binding Ditraschicht.Vorhanden, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        <Image Source="{Binding Daemmungschicht.GewaehltesElementA.Bild}" Grid.Column="1" Visibility="{Binding Daemmungschicht.VorhandenA, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        <Image Source="{Binding Daemmungschicht.GewaehltesElementB.Bild}" Grid.Column="1" Visibility="{Binding Daemmungschicht.VorhandenB, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        <Image Source="{Binding Daemmungschicht.GewaehltesElementC.Bild}" Grid.Column="1" Visibility="{Binding Daemmungschicht.VorhandenC, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        <Image Source="{Binding Betonschicht.GewaehltesElement.Bild}" Grid.Column="1" Visibility="{Binding Betonschicht.Vorhanden, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    </StackPanel>
+                </Grid>
+                
+                <!--<ContentControl DataContext="{Binding Auswertung}" Grid.Column="2">-->
+                <ContentPresenter Content="{Binding Auswertung}" Grid.Column="2">
+
+                    <ContentPresenter.Resources>
+                        <DataTemplate DataType="{x:Type local:Auswertung}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0" HorizontalAlignment="Center">
+                                    <TextBlock Text="Prognostizierter Trittschallpegel:"/>
+                                </StackPanel>
+
+                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2" Orientation="Horizontal">
+                                    <TextBlock FontSize="20">L'<Run BaselineAlignment="Subscript" FontSize="12">n, w, R</Run></TextBlock>
+                                    <TextBlock FontSize="20" Text="&lt;" Margin="10,0,0,0"/>
+                                    <TextBlock FontSize="20" Text="{Binding PrognostizierterPegel, StringFormat={}{0:F1}}" Margin="10,0,0,0"/>
+                                </StackPanel>
+                                <ListView Grid.Row="1" ItemsSource="{Binding ZugehoerigerAufbau}">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Header="Produkt" DisplayMemberBinding=
+                          "{Binding Path=Bezeichnung}">
+                                                
+                                            </GridViewColumn>
+                                            <GridViewColumn Header="Schichttyp" DisplayMemberBinding=
+                          "{Binding ZugeordneteSchicht}"></GridViewColumn>
+                                            <GridViewColumn Header="Dicke" DisplayMemberBinding=
+                          "{Binding Dicke}"></GridViewColumn>
+                                        </GridView>
+                                    </ListView.View>
+
+                                </ListView>
+                                <TextBlock Grid.Row="2" Text="{Binding ErstelltAm, StringFormat=Erstellt am: {0:dd.MM.yyyy} um {0:HH:mm:ss}}"/>
+                            </Grid>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type local:AuswertungMitError}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{Binding Informationstext}" Grid.Row="0"/>
+                            </Grid>
+                            
+                        </DataTemplate>
+                    </ContentPresenter.Resources>
+                </ContentPresenter>
+                <!--</ContentControl>-->
+                
+                
+            </Grid>
+        </TabItem>
+        <TabItem Header="Vorhandene Aufbauelemente">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+                <ListBox Grid.Column="0" ItemsSource="{Binding Einzelelemente}" SelectedItem="{Binding SelectedEinzelelement, Mode=TwoWay}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Bezeichnung}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Image Source="{Binding SelectedEinzelelement.Bild}" Grid.Column="1"/>
             </Grid>
         </TabItem>
     </TabControl>

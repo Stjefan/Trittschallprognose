@@ -34,37 +34,9 @@ namespace Trittschallprognose
         {
             InitializeComponent();
         }
-
-        private void Label1_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            Label lblFrom = e.Source as Label;
-
-            if (e.LeftButton == MouseButtonState.Pressed)
-                DragDrop.DoDragDrop(lblFrom, lblFrom.Content, DragDropEffects.Copy);
-        }
-
-        private void Label1_QueryContinueDrag(object sender, QueryContinueDragEventArgs e)
-        {
-            Label lblFrom = e.Source as Label;
-
-            if (!e.KeyStates.HasFlag(DragDropKeyStates.LeftMouseButton))
-                lblFrom.Content = "...";
-        }
-
-        private void Label2_Drop(object sender, DragEventArgs e)
-        {
-            string draggedText = (string)e.Data.GetData(DataFormats.StringFormat);
-
-            Label toLabel = e.Source as Label;
-            (sender as Label).Content = draggedText;
-            // toLabel.Content = draggedText;
-        }
     }
-
     public class Schalldaten : INotifyPropertyChanged
     {
-        private int devlopmentDouble = 50;
-
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
@@ -72,55 +44,12 @@ namespace Trittschallprognose
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public Uri Uri { get; set; }
-        public ObservableCollection<ABauelementTreppenaufbau> Treppenaufbau { get; set; }
-
         public ObservableCollection<Einzelelement> Einzelelemente { get; set; }
 
         public Einzelelement SelectedEinzelelement { get => selectedEinzelelement; set { selectedEinzelelement = value; NotifyPropertyChanged(); } }
-        private BitmapImage myImage;
         private Einzelelement selectedEinzelelement;
-        private Einzelelement schichtC_Element;
-        private Einzelelement schichtB_Element;
-        private Einzelelement schichtA_Element;
+        private AAuswertung auswertung;
 
-        public BitmapImage MyImage { get => myImage; set { myImage = value; NotifyPropertyChanged(); } }
-
-        public ImageCollection Images { get; set; }
-
-        public Fliese Fliese { get; set; }
-        public Estrich Estrich { get; set; }
-        public Ditra Ditra { get; set; }
-
-        public Beton Beton { get; set; }
-        public Daemmung Daemmung { get; set; }
-        public Schalldaemmung Schalldaemmung { get; set; }
-        public int DevlopmentDouble { get => devlopmentDouble; set { devlopmentDouble = value; NotifyPropertyChanged(); } }
-
-
-        public ObservableCollection<Einzelelement> SchichtA { get; set; }
-
-        public Einzelelement SchichtA_Element { get => schichtA_Element; set { schichtA_Element = value; NotifyPropertyChanged(); } }
-        public ObservableCollection<Einzelelement> SchichtB { get; set; }
-        public Einzelelement SchichtB_Element { get => schichtB_Element; set { schichtB_Element = value; NotifyPropertyChanged(); } }
-
-        public ObservableCollection<Einzelelement> SchichtC { get; set; }
-        public Einzelelement SchichtC_Element { get => schichtC_Element; set { schichtC_Element = value; NotifyPropertyChanged(); } }
-
-        public ObservableCollection<Einzelelement> Bekotec { get; set; }
-
-
-
-        public ObservableCollection<Einzelelement> Bekotec_23f { get; set; }
-        public ObservableCollection<Einzelelement> Bekotec_2520 { get; set; }
-
-        public ObservableCollection<Einzelelement> Schlueter { get; set; }
-
-        public ObservableCollection<Einzelelement> DaemmungA { get; set; }
-        public ObservableCollection<Einzelelement> DaemmungB { get; set; }
-        public ObservableCollection<Einzelelement> DaemmungC { get; set; }
-
-        public string DevelopmentProp { get; set; } = "Waltraud";
 
         public SchichtDefaultViewModel Betonschicht { get; set; }
         public SchichtDefaultViewModel Fliesenschicht { get; set; }
@@ -128,14 +57,14 @@ namespace Trittschallprognose
         public SchichtDefaultViewModel Bekotecschicht { get; set; }
         public SchichtDaemmungViewModel Daemmungschicht { get; set; }
 
-        public Auswertung Auswertung { get; set; }
+        public AAuswertung Auswertung { get => auswertung; set { auswertung = value; NotifyPropertyChanged(); } }
         public ICommand ErstelleAuswertungCommand { get; set; }
 
 
         private void ErstelleEinzelelmente()
         {
 
-            
+
 
             Einzelelemente = new ObservableCollection<Einzelelement>()
             {
@@ -162,93 +91,18 @@ namespace Trittschallprognose
                 new Einzelelement("Thermowhite (70 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_70mm_r_cropped.jpg"), 70),
             };
 
-            SchichtA = new ObservableCollection<Einzelelement>()
-            {
-                new Einzelelement("Thermowhite (55 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_55mm_r_cropped.jpg"), 55),
-                new Einzelelement("Thermowhite (60 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_60mm_r_cropped.jpg"), 60),
-                new Einzelelement("Thermowhite (70 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_70mm_r_cropped.jpg"), 70),
-            };
-
-            SchichtB = new ObservableCollection<Einzelelement>()
-            {
-                
-                new Einzelelement("BT Ditra Heat Kleber (2 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_ditra_heat_kleber_2mm_r_cropped.jpg"), 2),
-                new Einzelelement("BT Ditra25 Kleber (1 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_ditra25_kleber_1mm_r_cropped.jpg"), 1),
-                new Einzelelement("BT Fliesenkleber (3 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_fliesen_kleber_3mm_r_cropped.jpg"), 3),
-            };
-
-            SchichtC = new ObservableCollection<Einzelelement>()
-            {
-                new Einzelelement("EPS (15 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_15mm_r_cropped.jpg"), 15),
-                new Einzelelement("EPS (30 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_30mm_r_cropped.jpg"), 30),
-                new Einzelelement("EPS (35 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_35mm_r_cropped.jpg"), 35),
-            };
-
-            Bekotec = new ObservableCollection<Einzelelement>()
-            {
-                new Einzelelement("BT 12fk (8 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_12fk_8mm_r_cropped.jpg"), 8),
-                new Einzelelement("BT 23f Estrich (20 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_23f_estrich_20mm_r_cropped.jpg"), 20),
-                new Einzelelement("BT 23f Estrich (8 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_23f_estrich_8mm_r_cropped.jpg"), 8),
-                new Einzelelement("BT 2520 Estrich (20 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_2520_estrich_20mm_r_cropped.jpg"), 20),
-                new Einzelelement("BT 2520 Estrich (8 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_2520_estrich_8mm_r_cropped.jpg"), 8),
-            };
-
-            DaemmungA = new ObservableCollection<Einzelelement>()
-            {
-                 new Einzelelement("Cemwood", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_cemwood_r_cropped.jpg"), null),
-                new Einzelelement("EPS (15 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_15mm_r_cropped.jpg"), 15),
-                new Einzelelement("EPS (30 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_30mm_r_cropped.jpg"), 30),
-                new Einzelelement("EPS (35 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_35mm_r_cropped.jpg"), 35),
-                new Einzelelement("Gutex Thermofloor", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_gutex_thermofloor_r_cropped.jpg"), null),
-                new Einzelelement("Isover", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_isover_r_cropped.jpg"), null),
-                new Einzelelement("Kerdi-Line-SR", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_kerdi-line-sr_r_cropped.jpg"), null),
-                new Einzelelement("Rockwoll-HP", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_rockwoll-HP_r_cropped.jpg"), null),
-                new Einzelelement("Rockwoll-te", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_rockwoll-te_r_cropped.jpg"), null),
-                new Einzelelement("Thermowhite (55 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_55mm_r_cropped.jpg"), 55),
-                new Einzelelement("Thermowhite (60 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_60mm_r_cropped.jpg"), 60),
-                new Einzelelement("Thermowhite (70 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_70mm_r_cropped.jpg"), 70),
-            };
-
-            DaemmungB = new ObservableCollection<Einzelelement>()
-            {
-                 new Einzelelement("Cemwood", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_cemwood_r_cropped.jpg"), null),
-                new Einzelelement("EPS (15 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_15mm_r_cropped.jpg"), 15),
-                new Einzelelement("EPS (30 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_30mm_r_cropped.jpg"), 30),
-                new Einzelelement("EPS (35 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_35mm_r_cropped.jpg"), 35),
-                new Einzelelement("Gutex Thermofloor", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_gutex_thermofloor_r_cropped.jpg"), null),
-                new Einzelelement("Isover", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_isover_r_cropped.jpg"), null),
-                new Einzelelement("Kerdi-Line-SR", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_kerdi-line-sr_r_cropped.jpg"), null),
-                new Einzelelement("Rockwoll-HP", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_rockwoll-HP_r_cropped.jpg"), null),
-                new Einzelelement("Rockwoll-te", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_rockwoll-te_r_cropped.jpg"), null),
-                new Einzelelement("Thermowhite (55 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_55mm_r_cropped.jpg"), 55),
-                new Einzelelement("Thermowhite (60 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_60mm_r_cropped.jpg"), 60),
-                new Einzelelement("Thermowhite (70 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_70mm_r_cropped.jpg"), 70),
-            };
-
-            DaemmungC = new ObservableCollection<Einzelelement>()
-            {
-                 new Einzelelement("Cemwood", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_cemwood_r_cropped.jpg"), null),
-                new Einzelelement("EPS (15 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_15mm_r_cropped.jpg"), 15),
-                new Einzelelement("EPS (30 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_30mm_r_cropped.jpg"), 30),
-                new Einzelelement("EPS (35 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_35mm_r_cropped.jpg"), 35),
-                new Einzelelement("Gutex Thermofloor", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_gutex_thermofloor_r_cropped.jpg"), null),
-                new Einzelelement("Isover", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_isover_r_cropped.jpg"), null),
-                new Einzelelement("Kerdi-Line-SR", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_kerdi-line-sr_r_cropped.jpg"), null),
-                new Einzelelement("Rockwoll-HP", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_rockwoll-HP_r_cropped.jpg"), null),
-                new Einzelelement("Rockwoll-te", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_rockwoll-te_r_cropped.jpg"), null),
-                new Einzelelement("Thermowhite (55 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_55mm_r_cropped.jpg"), 55),
-                new Einzelelement("Thermowhite (60 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_60mm_r_cropped.jpg"), 60),
-                new Einzelelement("Thermowhite (70 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_70mm_r_cropped.jpg"), 70),
-            };
-
+            
         }
 
         public Schalldaten()
         {
+            var db = new SimpleDatabase();
+            
 
-            Auswertung = new Auswertung();
+            Auswertung = new AuswertungMitError();
 
             ErstelleEinzelelmente();
+            /*
             Fliese = new Fliese() { Bild = new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_fliesen_kleber_3mm_r_cropped.jpg") };
             Estrich = new Estrich() { Bild = new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_23f_estrich_20mm_r_cropped.jpg") };
             Ditra = new Ditra() { Bild = new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_ditra25_kleber_1mm_r_cropped.jpg") };
@@ -256,145 +110,75 @@ namespace Trittschallprognose
             Daemmung = new Daemmung() { Bild = new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_30mm_r_cropped.jpg") };
             Schalldaemmung = new Schalldaemmung() { Bild = new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_rockwoll-te_r_cropped.jpg") };
 
-            Betonschicht = new SchichtDefaultViewModel(new ObservableCollection<Einzelelement>() { new Einzelelement("Stahlbeton", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_beton_r_cropped.jpg"), null), });
-            Fliesenschicht = new SchichtDefaultViewModel(Bekotec);
-            Ditraschicht = new SchichtDefaultViewModel(new ObservableCollection<Einzelelement>()
+            var betonModel = new EinzelelementModel()
             {
-
-                new Einzelelement("BT Ditra Heat Kleber (2 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_ditra_heat_kleber_2mm_r_cropped.jpg"), 2),
-                new Einzelelement("BT Ditra25 Kleber (1 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_ditra25_kleber_1mm_r_cropped.jpg"), 1),
-                new Einzelelement("BT Fliesenkleber (3 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_fliesen_kleber_3mm_r_cropped.jpg"), 3),
-            });
-            Bekotecschicht = new SchichtDefaultViewModel(Bekotec);
-            Daemmungschicht = new SchichtDaemmungViewModel(new ObservableCollection<Einzelelement>()
-            {
-                 new Einzelelement("Cemwood", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_cemwood_r_cropped.jpg"), null),
-                new Einzelelement("EPS (15 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_15mm_r_cropped.jpg"), 15),
-                new Einzelelement("EPS (30 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_30mm_r_cropped.jpg"), 30),
-                new Einzelelement("EPS (35 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_eps_35mm_r_cropped.jpg"), 35),
-                new Einzelelement("Gutex Thermofloor", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_gutex_thermofloor_r_cropped.jpg"), null),
-                new Einzelelement("Isover", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_isover_r_cropped.jpg"), null),
-                new Einzelelement("Kerdi-Line-SR", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_kerdi-line-sr_r_cropped.jpg"), null),
-                new Einzelelement("Rockwoll-HP", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_rockwoll-HP_r_cropped.jpg"), null),
-                new Einzelelement("Rockwoll-te", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_rockwoll-te_r_cropped.jpg"), null),
-                new Einzelelement("Thermowhite (55 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_55mm_r_cropped.jpg"), 55),
-                new Einzelelement("Thermowhite (60 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_60mm_r_cropped.jpg"), 60),
-                new Einzelelement("Thermowhite (70 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_70mm_r_cropped.jpg"), 70),
-            });
-
-
-            Treppenaufbau = new ObservableCollection<ABauelementTreppenaufbau>() {
-                new Fliese(),
-                Ditra,
-                Estrich,
-                new Bekotec(),
-                Schalldaemmung,
-                Daemmung,
-                Beton,
+                PfadAufbereitetesBild = "./Resources/CroppedImages/ss_schn_beton_r_cropped.jpg",
+                Bezeichnung = "Stahlbeton"
             };
+            */
 
-            Images = new ImageCollection();
+
+            Betonschicht = new SchichtDefaultViewModel("Beton", new ObservableCollection<Einzelelement>(db.Betonschicht.ZugeordneteElemente.Select(i => new Einzelelement(i.Bezeichnung, new Uri(i.GetRelativePfadBild()), i.Dicke))));
+            Fliesenschicht = new SchichtDefaultViewModel("Fließen", new ObservableCollection<Einzelelement>(db.Fliesenschicht.ZugeordneteElemente.Select(i => new Einzelelement(i.Bezeichnung, new Uri(i.GetRelativePfadBild()), i.Dicke))));
+            Ditraschicht = new SchichtDefaultViewModel("Ditra", new ObservableCollection<Einzelelement>(db.Ditraschicht.ZugeordneteElemente.Select(i => new Einzelelement(i.Bezeichnung, new Uri(i.GetRelativePfadBild()), i.Dicke))));
+            
+            Bekotecschicht = new SchichtDefaultViewModel("Bekotec", new ObservableCollection<Einzelelement>(db.Bekotecschicht.ZugeordneteElemente.Select(i => new Einzelelement(i.Bezeichnung, new Uri(
+                i.GetRelativePfadBild()), i.Dicke))));
+            Daemmungschicht = new SchichtDaemmungViewModel("Dämmung",
+                new ObservableCollection<Einzelelement>(db.Daemmungschicht.ZugeordneteElemente.Select(i => new Einzelelement(i.Bezeichnung, new Uri(i.GetRelativePfadBild()), i.Dicke))));
 
 
             // var uri = new Uri("pack://application:,,,/Resources/ss_schn_beton_r.jpg");
 
-            /*
-            BitmapImage bmi = new BitmapImage(uri);
-            var mybm = BitmapImage2Bitmap(bmi);
-            var myModifiedBm = CropImage(mybm, new Rectangle(0, 411, mybm.Width, 734-411));
-            myModifiedBm.Save("ss_schn_beton_r_cropped.jpg");
-
-            ModifyPicture(new Uri("pack://application:,,,/Resources/ss_schn_bt_12fk_8mm_r.jpg"), 458, "bt_12fk_8mm_cropped.jpg");
-            */
-            // ModifyPicture(new Uri("pack://application:,,,/Resources/ss_schn_bt_23f_estrich_20mm_r.jpg"), 399, "ss_schn_bt_23f_estrich_20mm_r_cropped.jpg");
-            /*
-            ModifyPicture(new Uri("pack://application:,,,/Resources/ss_schn_bt_23f_estrich_8mm_r.jpg"), 433, "ss_schn_bt_23f_estrich_8mm_r_cropped.jpg");
-            ModifyPicture(new Uri("pack://application:,,,/Resources/ss_schn_bt_2520_estrich_20mm_r.jpg"), 352, "ss_schn_bt_2520_estrich_20mm_r_cropped.jpg");
-            ModifyPicture(new Uri("pack://application:,,,/Resources/ss_schn_bt_2520_estrich_8mm_r.jpg"), 389, "ss_schn_bt_2520_estrich_8mm_r_cropped.jpg");
-            ModifyPicture(new Uri("pack://application:,,,/Resources/ss_schn_bt_ditra_heat_kleber_2mm_r.jpg"), 476, "ss_schn_bt_ditra_heat_kleber_2mm_r_cropped.jpg");
-            ModifyPicture(new Uri("pack://application:,,,/Resources/ss_schn_bt_ditra25_kleber_1mm_r.jpg"), 479, "ss_schn_bt_ditra25_kleber_1mm_r_cropped.jpg");
-            ModifyPicture(new Uri("pack://application:,,,/Resources/ss_schn_bt_fliesen_kleber_3mm_r.jpg"), 467, "ss_schn_bt_fliesen_kleber_3mm_r_cropped.jpg");
-            ModifyPicture(new Uri("pack://application:,,,/Resources/ss_schn_cemwood_r.jpg"), 342, "ss_schn_cemwood_r_cropped.jpg");
-            ModifyPicture(new Uri("pack://application:,,,/Resources/ss_schn_eps_15mm_r.jpg"), 458, "ss_schn_eps_15mm_r_cropped.jpg");
-            ModifyPicture(new Uri("pack://application:,,,/Resources/ss_schn_eps_30mm_r.jpg"), 434, "ss_schn_eps_30mm_r_cropped.jpg");
-            ModifyPicture(new Uri("pack://application:,,,/Resources/ss_schn_eps_35mm_r.jpg"), 422, "ss_schn_eps_35mm_r_cropped.jpg");
-            ModifyPicture(new Uri("pack://application:,,,/Resources/ss_schn_gutex_thermofloor_r.jpg"), 448, "ss_schn_gutex_thermofloor_r_cropped.jpg");
-            ModifyPicture(new Uri("pack://application:,,,/Resources/ss_schn_isover_r.jpg"), 448, "ss_schn_isover_r_cropped.jpg");
-            ModifyPicture(new Uri("pack://application:,,,/Resources/ss_schn_kerdi-line-sr_r.jpg"), 469, "ss_schn_kerdi-line-sr_r_cropped.jpg");
-            ModifyPicture(new Uri("pack://application:,,,/Resources/ss_schn_rockwoll-HP_r.jpg"), 447, "ss_schn_rockwoll-HP_r_cropped.jpg");
-            ModifyPicture(new Uri("pack://application:,,,/Resources/ss_schn_rockwoll-te_r.jpg"), 437, "ss_schn_rockwoll-te_r_cropped.jpg");
-            ModifyPicture(new Uri("pack://application:,,,/Resources/ss_schn_thermowhite_55mm_r.jpg"), 376, "ss_schn_thermowhite_55mm_r_cropped.jpg");
-            ModifyPicture(new Uri("pack://application:,,,/Resources/ss_schn_thermowhite_60mm_r.jpg"), 365, "ss_schn_thermowhite_60mm_r_cropped.jpg");
-            ModifyPicture(new Uri("pack://application:,,,/Resources/ss_schn_thermowhite_70mm_r.jpg"), 339, "ss_schn_thermowhite_70mm_r_cropped.jpg");
-            */
+            
 
 
-            new DefaultCommand()
+
+
+            ErstelleAuswertungCommand = new DefaultCommand()
             {
                 Action = new Action(() =>
                 {
-                    Auswertung = new Auswertung();
-                    Auswertung.ZugehoerigerAufbau = new ObservableCollection<Einzelelement>()
+                    var bodenaufbau = new ObservableCollection<Einzelelement>();
+
+
+                    if (Betonschicht.GewaehltesElement != null && Betonschicht.Vorhanden)
                     {
-                        Ditraschicht.GewaehltesElement,
-                        Bekotecschicht.GewaehltesElement,
-                    };
+                        bodenaufbau.Add(Betonschicht.GewaehltesElement);
+                    }
+                    if (Fliesenschicht.GewaehltesElement != null && Fliesenschicht.Vorhanden)
+                    {
+                        bodenaufbau.Add(Fliesenschicht.GewaehltesElement);
+                    }
+                    if (Ditraschicht.GewaehltesElement != null && Ditraschicht.Vorhanden)
+                    {
+                        bodenaufbau.Add(Ditraschicht.GewaehltesElement);
+                    }
+                    if (Bekotecschicht.GewaehltesElement != null && Bekotecschicht.Vorhanden)
+                    {
+                        bodenaufbau.Add(Bekotecschicht.GewaehltesElement);
+                    }
+                    if (Daemmungschicht.GewaehltesElementA != null && Daemmungschicht.VorhandenA)
+                    {
+                        bodenaufbau.Add(Daemmungschicht.GewaehltesElementA);
+                    }
+                    if (Daemmungschicht.GewaehltesElementB != null && Daemmungschicht.VorhandenB)
+                    {
+                        bodenaufbau.Add(Daemmungschicht.GewaehltesElementB);
+                    }
+                    if (Daemmungschicht.GewaehltesElementC != null && Daemmungschicht.VorhandenC)
+                    {
+                        bodenaufbau.Add(Daemmungschicht.GewaehltesElementC);
+                    }
+                    Auswertung = AAuswertung.CreateAuswertung(bodenaufbau);
+
+
+
+
                 })
             };
         }
 
-
-        public static void ModifyPicture(Uri uri, int nonWhiteStart, string newName)
-        {
-
-            BitmapImage bmi = new BitmapImage(uri);
-            var mybm = BitmapImage2Bitmap(bmi);
-            var myModifiedBm = CropImage(mybm, new Rectangle(0, nonWhiteStart, mybm.Width, mybm.Height - nonWhiteStart));
-            myModifiedBm.Save(newName);
-        }
-
-
-        private static Bitmap BitmapImage2Bitmap(BitmapImage bitmapImage)
-        {
-            // BitmapImage bitmapImage = new BitmapImage(new Uri("../Images/test.png", UriKind.Relative));
-
-            using (MemoryStream outStream = new MemoryStream())
-            {
-                BitmapEncoder enc = new BmpBitmapEncoder();
-                enc.Frames.Add(BitmapFrame.Create(bitmapImage));
-                enc.Save(outStream);
-                System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(outStream);
-
-                return new Bitmap(bitmap);
-            }
-        }
-
-        public static BitmapImage ToBitmapImage(Bitmap bitmap)
-        {
-            using (var memory = new MemoryStream())
-            {
-                bitmap.Save(memory, ImageFormat.Png);
-                memory.Position = 0;
-
-                var bitmapImage = new BitmapImage();
-                bitmapImage.BeginInit();
-                bitmapImage.StreamSource = memory;
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.EndInit();
-                bitmapImage.Freeze();
-
-                return bitmapImage;
-            }
-        }
-        public static Bitmap CropImage(Bitmap source, Rectangle section)
-        {
-            var bitmap = new Bitmap(section.Width, section.Height);
-            using (var g = Graphics.FromImage(bitmap))
-            {
-                g.DrawImage(source, 0, 0, section, GraphicsUnit.Pixel);
-                return bitmap;
-            }
-        }
 
 
 
@@ -410,6 +194,7 @@ namespace Trittschallprognose
 
         public int? Dicke { get; set; }
 
+        public string ZugeordneteSchicht { get; set; }
 
         public Einzelelement()
         {
@@ -421,6 +206,21 @@ namespace Trittschallprognose
             Bild = bild;
             Bezeichnung = bezeichnung;
             Dicke = dicke;
+        }
+
+        public Einzelelement MakeCopy()
+        {
+            return new Einzelelement()
+            {
+                Bezeichnung = Bezeichnung,
+                Bild = Bild,
+                Dicke = Dicke
+            };
+        }
+
+        public static Einzelelement CreateFromModel(EinzelelementModel arg)
+        {
+            return new Einzelelement(arg.Bezeichnung, new Uri(arg.PfadAufbereitetesBild, UriKind.Relative), arg.Dicke != 0 ? arg.Dicke : new int?());
         }
     }
 
@@ -446,7 +246,7 @@ namespace Trittschallprognose
     {
         public override string Typbezeichnung => "Stahlbeton";
 
-        
+
 
         public static string[] Varianten = { "a" };
     }
@@ -515,124 +315,6 @@ namespace Trittschallprognose
         public override string Typbezeichnung => "Schlüter Bekotec";
     }
 
-
-    public class ImageCollection
-    {
-
-        public BitmapImage Beton { get; set; }
-        public BitmapImage FK8mm { get; set; }
-        public BitmapImage Estrich23f_20mm { get; set; }
-        public BitmapImage Estrich23f_8mm { get; set; }
-        public BitmapImage Estrich2520_20mm { get; set; }
-        public BitmapImage Estrich2520_8mm { get; set; }
-        public BitmapImage Ditra_heat_kleber_2mm { get; set; }
-        public BitmapImage EPS_30mm { get; set; }
-
-        public ImageCollection()
-        {
-            
-            //Bitmap source = new Bitmap(@"C:\Users\stsch\source\repos\Trittschallprognose\Trittschallprognose\Resources/ss_schn_bt_23f_estrich_20mm_r.jpg");
-            //Rectangle section = new Rectangle(0, 460, 734, 497 - 460);
-
-            //Bitmap CroppedImage = CropImage(source, section);
-
-            //Estrich23f_20mm = ToBitmapImage(CroppedImage);
-
-
-            //Bitmap source_Ditra_heat = new Bitmap(@"C:\Users\stsch\source\repos\Trittschallprognose\Trittschallprognose\Resources/ss_schn_bt_ditra_heat_kleber_2mm_r.jpg");
-            //Rectangle section_Ditra_heat = new Rectangle(0, 400, 734, 497 - 450);
-
-            //Bitmap croppedImage_Ditra_heat = CropImage(source_Ditra_heat, section_Ditra_heat);
-
-            //Ditra_heat_kleber_2mm = ToBitmapImage(croppedImage_Ditra_heat);
-
-
-            //Bitmap source_EPS_30mm = new Bitmap(@"C:\Users\stsch\source\repos\Trittschallprognose\Trittschallprognose\Resources/ss_schn_eps_30mm_r.jpg");
-            //Rectangle section_EPS_30mm = new Rectangle(0, 450, 734, 497 - 450);
-
-            //Bitmap croppedImage_EPS_30mm = CropImage(source_EPS_30mm, section_EPS_30mm);
-
-            //EPS_30mm = ToBitmapImage(croppedImage_EPS_30mm);
-
-        }
-
-        public static BitmapImage ToBitmapImage(Bitmap bitmap)
-        {
-            using (var memory = new MemoryStream())
-            {
-                bitmap.Save(memory, ImageFormat.Png);
-                memory.Position = 0;
-
-                var bitmapImage = new BitmapImage();
-                bitmapImage.BeginInit();
-                bitmapImage.StreamSource = memory;
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.EndInit();
-                bitmapImage.Freeze();
-
-                return bitmapImage;
-            }
-        }
-        public Bitmap CropImage(Bitmap source, Rectangle section)
-        {
-            var bitmap = new Bitmap(section.Width, section.Height);
-            using (var g = Graphics.FromImage(bitmap))
-            {
-                g.DrawImage(source, 0, 0, section, GraphicsUnit.Pixel);
-                return bitmap;
-            }
-        }
-    }
-
-
-    public class Treppenaufbau_130421
-    {
-
-    }
-    /*
-    public class Bekotec_130421
-    {
-        public ObservableCollection<Einzelelement> Bekotecelemente { get; set; }
-
-        public Einzelelement Bekotec { get; set; }
-
-        public string Schichtbezeichnung { get; set; } = "Bekotec";
-    }
-
-    public class Ditra_130421
-    {
-        public ObservableCollection<Einzelelement> Ditraelemente { get; set; }
-
-        public Einzelelement Ditra { get; set; }
-
-        public string Schichtbezeichnung { get; set; } = "Ditra";
-    }
-
-    public class Daemmung_130421
-    {
-        public Einzelelement DaemmungA { get; set; }
-
-        public Einzelelement DaemmungB { get; set; }
-
-        public Einzelelement DaemmungC { get; set; }
-
-        public ObservableCollection<Einzelelement> Daemmungselemente { get; set; }
-
-        public string Schichtbezeichnung { get; set; } = "Dämmung";
-
-    }
-
-    public class Fliese_130421
-    {
-        public string Schichtbezeichnung { get; set; } = "Dämmung";
-    }
-
-
-    public class Beton_130421
-    {
-        public string Schichtbezeichnung { get; set; } = "Beton";
-    }
-    */
     public class SchichtDefaultViewModel : INotifyPropertyChanged
     {
         public bool Vorhanden { get => vorhanden; set { vorhanden = value; NotifyPropertyChanged(); } }
@@ -644,9 +326,14 @@ namespace Trittschallprognose
 
         public ObservableCollection<Einzelelement> MoeglicheElemente { get; set; }
 
-        public SchichtDefaultViewModel(ObservableCollection<Einzelelement> moeglicheElemente)
+        public SchichtDefaultViewModel(string schichtbezeichnung, ObservableCollection<Einzelelement> moeglicheElemente)
         {
+            Schichtbezeichnung = schichtbezeichnung;
             MoeglicheElemente = moeglicheElemente;
+            foreach (var i in MoeglicheElemente)
+            {
+                i.ZugeordneteSchicht = Schichtbezeichnung;
+            };
         }
 
         public Einzelelement GewaehltesElement { get => gewaehltesElement; set { gewaehltesElement = value; NotifyPropertyChanged(); } }
@@ -666,10 +353,16 @@ namespace Trittschallprognose
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         public ObservableCollection<Einzelelement> MoeglicheElemente { get; set; }
+        public string Schichtbezeichnung { get; set; }
 
-        public SchichtDaemmungViewModel(ObservableCollection<Einzelelement> moeglicheElemente)
+        public SchichtDaemmungViewModel(string schichtbezeichnung, ObservableCollection<Einzelelement> moeglicheElemente)
         {
+            Schichtbezeichnung = schichtbezeichnung;
             MoeglicheElemente = moeglicheElemente;
+            foreach (var i in MoeglicheElemente)
+            {
+                i.ZugeordneteSchicht = Schichtbezeichnung;
+            };
         }
 
         private Einzelelement gewaehltesElementA;
@@ -691,16 +384,30 @@ namespace Trittschallprognose
 
 
     }
-    public class Auswertung : INotifyPropertyChanged
-    {
-        private double prognostizierterPegel;
 
+    public abstract class AAuswertung : INotifyPropertyChanged
+    {
         public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        public void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+
+        public static AAuswertung CreateAuswertung(ObservableCollection<Einzelelement> arg)
+        {
+            if (arg.Count < 2)
+            {
+                return new AuswertungMitError("Kein valider Bodenaufbau eingegeben.");
+            } else
+            {
+                return new Auswertung(arg);
+            }
+        }
+    }
+    public class Auswertung : AAuswertung
+    {
+        private double prognostizierterPegel;
 
         public ObservableCollection<Einzelelement> ZugehoerigerAufbau { get; set; }
 
@@ -709,23 +416,36 @@ namespace Trittschallprognose
         public ICommand BerechnePrognositiziertenPegel { get; set; }
 
 
+        public DateTime ErstelltAm { get => erstelltAm; set { erstelltAm = value; NotifyPropertyChanged(); } }
+
         private Random r = new Random();
+        private DateTime erstelltAm;
+
         public Auswertung()
         {
-            BerechnePrognositiziertenPegel = new DefaultCommand()
-            {
-                Action = new Action(() =>
-                {
-                    PrognostizierterPegel = r.NextDouble() * 100;
-                    ZugehoerigerAufbau = new ObservableCollection<Einzelelement>();
-                })
-            };
+        }
+
+        public Auswertung(ObservableCollection<Einzelelement> arg)
+        {
+            PrognostizierterPegel = r.NextDouble() * 100;
+            ErstelltAm = DateTime.Now;
+            ZugehoerigerAufbau = arg;
         }
     }
 
-    public class AuswertungMitError
+    public class AuswertungMitError : AAuswertung
     {
+        public string Informationstext { get; set; } = "Es wurden keine Daten eingegeben.";
 
+        public AuswertungMitError()
+        {
+
+        }
+
+        public AuswertungMitError(string anzeigetext)
+        {
+            Informationstext = anzeigetext;
+        }
     }
 
     public class DefaultCommand : ICommand

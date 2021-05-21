@@ -59,5 +59,14 @@ namespace Trittschallprognose.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        /// </summary>
+        internal static string SampleDatabse {
+            get {
+                return ResourceManager.GetString("SampleDatabse", resourceCulture);
+            }
+        }
     }
 }
