@@ -1,0 +1,29 @@
+# Zeilen mit #-Zeichen werden ignoriert
+# Header-Zeile
+Bezeichnung;Typ;Dicke;PfadAufbereitetesBild
+#
+#
+# Hier beginnen die Daten:
+XYZ;"Betonschicht"; 0;"C:\Users\stsch\source\repos\Trittschallprognose\Trittschallprognose\Resources\CroppedImages\ss_schn_bt_ditra_heat_kleber_2mm_r_cropped.jpg"
+"ABC";"Betonschicht"; 0;"C:\Users\stsch\OneDrive\Bilder\KuFi\CroppedImages\ss_schn_beton_r_cropped.jpg"
+BT 12fk (8 mm);"Bekotecschicht"; 8;"../../../Resources/CroppedImages/ss_schn_bt_12fk_8mm_r_cropped.jpg"
+"BT 23f Estrich (20 mm)";Bekotecschicht; 20;"../../../Resources/CroppedImages/ss_schn_bt_23f_estrich_20mm_r_cropped.jpg"
+"BT 23f Estrich (8 mm)";Bekotecschicht; 8;"../../../Resources/CroppedImages/ss_schn_bt_23f_estrich_8mm_r_cropped.jpg"
+"BT 2520 Estrich (20 mm)";"Bekotecschicht"; 20;"../../../Resources/CroppedImages/ss_schn_bt_2520_estrich_20mm_r_cropped.jpg"
+"BT 2520 Estrich (8 mm)";Bekotecschicht; 8;"../../../Resources/CroppedImages/ss_schn_bt_2520_estrich_8mm_r_cropped.jpg"
+"Cemwood";Dämmung;0;"../../../Resources/CroppedImages/ss_schn_cemwood_r_cropped.jpg"
+"EPS (15 mm)";Dämmung;15;"../../../Resources/CroppedImages/ss_schn_eps_15mm_r_cropped.jpg"
+"EPS (30 mm)";Dämmung;30;"../../../Resources/CroppedImages/ss_schn_eps_30mm_r_cropped.jpg"
+"EPS (35 mm)";Dämmung;35;"../../../Resources/CroppedImages/ss_schn_eps_35mm_r_cropped.jpg"
+"Gutex Thermofloor";Dämmung;0;"../../../Resources/CroppedImages/ss_schn_gutex_thermofloor_r_cropped.jpg"
+"Isover";Dämmung;0;"../../../Resources/CroppedImages/ss_schn_isover_r_cropped.jpg"
+"Kerdi-Line-SR";Dämmung;0;"../../../Resources/CroppedImages/ss_schn_kerdi-line-sr_r_cropped.jpg"
+"Rockwoll-HP";Dämmung;0;"../../../Resources/CroppedImages/ss_schn_rockwoll-HP_r_cropped.jpg"
+"Rockwoll-te";Dämmung;0;"../../../Resources/CroppedImages/ss_schn_rockwoll-te_r_cropped.jpg"
+"Thermowhite (55 mm)";Dämmung;55;"../../../Resources/CroppedImages/ss_schn_thermowhite_55mm_r_cropped.jpg"
+"Thermowhite (60 mm)";Dämmung;60;"../../../Resources/CroppedImages/ss_schn_thermowhite_60mm_r_cropped.jpg"
+"Thermowhite (70 mm)";Dämmung;70;"../../../Resources/CroppedImages/ss_schn_thermowhite_70mm_r_cropped.jpg"
+"BT Ditra Heat Kleber (2 mm)";Ditra;2;"../../../Resources/CroppedImages/ss_schn_bt_ditra_heat_kleber_2mm_r_cropped.jpg"
+"BT Ditra25 Kleber (1 mm)";Ditra;1;"../../../Resources/CroppedImages/ss_schn_bt_ditra25_kleber_1mm_r_cropped.jpg"
+"BT Fliesenkleber (3 mm)";Ditra;3;"../../../Resources/CroppedImages/ss_schn_bt_fliesen_kleber_3mm_r_cropped.jpg"
+# Aus Konsistenzgründen ist es zu bevorzugen, wenn Elemente eher auskommentiert anstatt gelöscht werden
