@@ -67,7 +67,7 @@ namespace Trittschallprognose
 
 
             Einzelelemente = new ObservableCollection<Einzelelement>()
-            {
+            /*{
                 new Einzelelement("Stahlbeton", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_beton_r_cropped.jpg"), null),
                 new Einzelelement("BT 12fk (8 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_12fk_8mm_r_cropped.jpg"), 8),
                 new Einzelelement("BT 23f Estrich (20 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_bt_23f_estrich_20mm_r_cropped.jpg"), 20),
@@ -89,7 +89,7 @@ namespace Trittschallprognose
                 new Einzelelement("Thermowhite (55 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_55mm_r_cropped.jpg"), 55),
                 new Einzelelement("Thermowhite (60 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_60mm_r_cropped.jpg"), 60),
                 new Einzelelement("Thermowhite (70 mm)", new Uri("pack://application:,,,/Resources/CroppedImages/ss_schn_thermowhite_70mm_r_cropped.jpg"), 70),
-            };
+            }*/;
 
             
         }
@@ -131,8 +131,26 @@ namespace Trittschallprognose
             // var uri = new Uri("pack://application:,,,/Resources/ss_schn_beton_r.jpg");
 
             
-
-
+            foreach(var el in Betonschicht.MoeglicheElemente)
+            {
+                Einzelelemente.Add(el);
+            }
+            foreach (var el in Ditraschicht.MoeglicheElemente)
+            {
+                Einzelelemente.Add(el);
+            }
+            foreach (var el in Fliesenschicht.MoeglicheElemente)
+            {
+                Einzelelemente.Add(el);
+            }
+            foreach (var el in Bekotecschicht.MoeglicheElemente)
+            {
+                Einzelelemente.Add(el);
+            }
+            foreach (var el in Daemmungschicht.MoeglicheElemente)
+            {
+                Einzelelemente.Add(el);
+            }
 
 
             ErstelleAuswertungCommand = new DefaultCommand()
@@ -158,17 +176,17 @@ namespace Trittschallprognose
                     {
                         bodenaufbau.Add(Bekotecschicht.GewaehltesElement);
                     }
-                    if (Daemmungschicht.GewaehltesElementA != null && Daemmungschicht.VorhandenA)
+                    if (Daemmungschicht.SchichtA.GewaehltesElement != null && Daemmungschicht.SchichtA.Vorhanden)
                     {
-                        bodenaufbau.Add(Daemmungschicht.GewaehltesElementA);
+                        bodenaufbau.Add(Daemmungschicht.SchichtA.GewaehltesElement);
                     }
-                    if (Daemmungschicht.GewaehltesElementB != null && Daemmungschicht.VorhandenB)
+                    if (Daemmungschicht.SchichtB.GewaehltesElement != null && Daemmungschicht.SchichtB.Vorhanden)
                     {
-                        bodenaufbau.Add(Daemmungschicht.GewaehltesElementB);
+                        bodenaufbau.Add(Daemmungschicht.SchichtB.GewaehltesElement);
                     }
-                    if (Daemmungschicht.GewaehltesElementC != null && Daemmungschicht.VorhandenC)
+                    if (Daemmungschicht.SchichtC.GewaehltesElement != null && Daemmungschicht.SchichtC.Vorhanden)
                     {
-                        bodenaufbau.Add(Daemmungschicht.GewaehltesElementC);
+                        bodenaufbau.Add(Daemmungschicht.SchichtC.GewaehltesElement);
                     }
                     Auswertung = AAuswertung.CreateAuswertung(bodenaufbau);
 
@@ -195,6 +213,8 @@ namespace Trittschallprognose
         public int? Dicke { get; set; }
 
         public string ZugeordneteSchicht { get; set; }
+
+        public int[] MoeglicheDicken { get; set; }
 
         public Einzelelement()
         {
@@ -343,6 +363,11 @@ namespace Trittschallprognose
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public SchichtDefaultViewModel()
+        {
+
+        }
     }
 
     public class SchichtDaemmungViewModel : INotifyPropertyChanged
@@ -363,8 +388,15 @@ namespace Trittschallprognose
             {
                 i.ZugeordneteSchicht = Schichtbezeichnung;
             };
+            SchichtA = new SchichtDefaultViewModel("Dämmschicht A", MoeglicheElemente);
+            SchichtB = new SchichtDefaultViewModel("Dämmschicht B", MoeglicheElemente);
+            SchichtC = new SchichtDefaultViewModel("Dämmschicht C", MoeglicheElemente);
         }
 
+        public SchichtDefaultViewModel SchichtA { get; set; }
+        public SchichtDefaultViewModel SchichtB { get; set; }
+        public SchichtDefaultViewModel SchichtC { get; set; }
+        /*
         private Einzelelement gewaehltesElementA;
         private Einzelelement gewaehltesElementB;
         private Einzelelement gewaehltesElementC;
@@ -381,6 +413,7 @@ namespace Trittschallprognose
         public bool VorhandenA { get => vorhandenA; set { vorhandenA = value; NotifyPropertyChanged(); } }
         public bool VorhandenB { get => vorhandenB; set { vorhandenB = value; NotifyPropertyChanged(); } }
         public bool VorhandenC { get => vorhandenC; set { vorhandenC = value; NotifyPropertyChanged(); } }
+        */
 
 
     }
