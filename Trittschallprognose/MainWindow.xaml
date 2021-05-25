@@ -36,19 +36,6 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <CheckBox IsChecked="{Binding Vorhanden, Mode=TwoWay}"/>
-                        <ComboBox Grid.Column="1" ItemsSource="{Binding MoeglicheElemente}" SelectedItem="{Binding GewaehltesElement, Mode=TwoWay}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Bezeichnung}"/>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                    </Grid>
-                    <Grid DataContext="{Binding Bekotecschicht}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <CheckBox IsChecked="{Binding Vorhanden, Mode=TwoWay}"/>
@@ -59,21 +46,20 @@
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
+                        <ContentControl Grid.Column="2" Content="{Binding GewaehltesElement}"/>
                     </Grid>
-                    <Grid DataContext="{Binding Ditraschicht}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <CheckBox IsChecked="{Binding Vorhanden, Mode=TwoWay}"/>
-                        <ComboBox Grid.Column="1" ItemsSource="{Binding MoeglicheElemente}" SelectedItem="{Binding GewaehltesElement, Mode=TwoWay}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Bezeichnung}"/>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                    </Grid>
+                </DataTemplate>
+            </TabItem.Resources>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" >
+                    <ContentControl Content="{Binding Fliesenschicht}"/>
+                    <ContentControl Content="{Binding Bekotecschicht}"/>
+                    <ContentControl Content="{Binding Ditraschicht}"/>
                     <Grid DataContext="{Binding Daemmungschicht}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -85,14 +71,15 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <CheckBox Grid.Row="0" IsChecked="{Binding VorhandenA, Mode=TwoWay}"/>
+                        <ContentControl Content="{Binding SchichtA}"/>
+                        <!--<CheckBox Grid.Row="0" IsChecked="{Binding VorhandenA, Mode=TwoWay}"/>
                         <ComboBox Grid.Column="1" ItemsSource="{Binding MoeglicheElemente}" SelectedItem="{Binding GewaehltesElementA, Mode=TwoWay}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Bezeichnung}"/>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
-                        </ComboBox>
+                        </ComboBox>-->
                         <CheckBox Grid.Row="1" IsChecked="{Binding VorhandenB, Mode=TwoWay}"/>
                         <ComboBox Grid.Column="1" ItemsSource="{Binding MoeglicheElemente}" SelectedItem="{Binding GewaehltesElementB, Mode=TwoWay}" Grid.Row="1">
                             <ComboBox.ItemTemplate>
