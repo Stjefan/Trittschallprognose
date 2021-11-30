@@ -1,0 +1,103 @@
+﻿<catel:Window x:Class="TrittschallprognoseCatel.Views.MainWindow"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:catel="http://schemas.catelproject.com" xmlns:views="clr-namespace:TrittschallprognoseCatel.Views"
+              ResizeMode="CanResize">
+    <catel:Window.Resources>
+        <catel:BooleanToCollapsingVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <catel:ReferenceToCollapsingVisibilityConverter x:Key="ReferenceToVisibiltyConverter"/>
+        <catel:BooleanToOppositeBooleanConverter x:Key="AntiConverter">
+            <!--
+            <catel:BooleanToOppositeBooleanConverter.Link>
+                <catel:ReferenceToBooleanConverter></catel:ReferenceToBooleanConverter>
+                </catel:BooleanToOppositeBooleanConverter.Link>
+            -->
+        </catel:BooleanToOppositeBooleanConverter>
+            
+    </catel:Window.Resources>
+     <Grid x:Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TabControl>
+            <TabItem Header="Eingabe">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1.5*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Column="0" Margin="5">
+                        <TextBlock Text="{Binding BoolProp, Converter={StaticResource AntiConverter}}"/>
+                        <TextBlock Text="Eingabe" HorizontalAlignment="Center"></TextBlock>
+                        <views:DefaultSchichtView DataContext="{Binding Fliesenschicht}"></views:DefaultSchichtView>
+                        <views:DefaultSchichtView DataContext="{Binding Ditraschicht}"></views:DefaultSchichtView>
+                        <views:DefaultSchichtView DataContext="{Binding Bekotecschicht}"></views:DefaultSchichtView>
+                        
+                        <views:DaemmungSchichtView DataContext="{Binding Daemmungschicht}"></views:DaemmungSchichtView>
+                        <views:DefaultSchichtView DataContext="{Binding Betonschicht}"></views:DefaultSchichtView>
+                        <!--
+                        <local:EinzelschichtView DataContext="{Binding Fliesenschicht}" Anzeigetext="XY}"/>
+                        <local:EinzelschichtView DataContext="{Binding Ditraschicht}"/>
+                        <local:EinzelschichtView DataContext="{Binding Bekotecschicht}"/>
+                        <local:DaemmschichtView DataContext="{Binding Daemmungschicht}"/>
+                        <local:EinzelschichtView DataContext="{Binding Betonschicht}"/>
+                        -->
+                        <Button Content="Berechne Trittschallpegel" Margin="20" Command="{Binding CreateAuswertung}"></Button>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Margin="5">
+                        <TextBlock Text="Schematischer Aufbau" Grid.Row="0" HorizontalAlignment="Center"/>
+                        <StackPanel Grid.Row="1" Margin="0,100,0,0" >
+                            <Image Source="{Binding Fliesenschicht.GewaehltesElement.Bild}" Grid.Column="1" Visibility="{Binding Fliesenschicht.Vorhanden, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                            <Image Source="{Binding Bekotecschicht.GewaehltesElement.Bild}" Grid.Column="1" Visibility="{Binding Bekotecschicht.Vorhanden, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                            <Image Source="{Binding Ditraschicht.GewaehltesElement.Bild}" Grid.Column="1" Visibility="{Binding Ditraschicht.Vorhanden, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                            <Image Source="{Binding Daemmungschicht.SchichtA.GewaehltesElement.Bild}" Grid.Column="1" Visibility="{Binding Daemmungschicht.SchichtA.Vorhanden, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                            <Image Source="{Binding Daemmungschicht.SchichtB.GewaehltesElement.Bild}" Grid.Column="1" Visibility="{Binding Daemmungschicht.SchichtB.Vorhanden, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                            <Image Source="{Binding Daemmungschicht.SchichtC.GewaehltesElement.Bild}" Grid.Column="1" Visibility="{Binding Daemmungschicht.SchichtC.Vorhanden, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                            <Image Source="{Binding Betonschicht.GewaehltesElement.Bild}" Grid.Column="1" Visibility="{Binding Betonschicht.Vorhanden, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!--<ContentControl DataContext="{Binding Auswertung}" Grid.Column="2">-->
+                    <Border BorderBrush="Black" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" BorderThickness="1" Margin="5">
+                        <StackPanel Margin="5">
+                            <TextBlock Text="Ergebnis" HorizontalAlignment="Center"/>
+                            <views:AuswertungView DataContext="{Binding Auswertung}" Visibility="{Binding ., Converter={StaticResource ReferenceToVisibiltyConverter}}"></views:AuswertungView>
+
+                        </StackPanel>
+
+                    </Border>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Alle Aufbauelemente">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="4*"/>
+                    </Grid.ColumnDefinitions>
+                    <ListBox Grid.Column="0" ItemsSource="{Binding Einzelelemente}" SelectedItem="{Binding SelectedEinzelelement, Mode=TwoWay}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Bezeichnung}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <StackPanel Grid.Column="1">
+                        <DockPanel>
+                            <TextBlock Text="{Binding SelectedEinzelelement.Bezeichnung}"/>
+                            <TextBlock Text="Pfad zum Bild:"/>
+                            <TextBlock Text="{Binding SelectedEinzelelement.Bild}" HorizontalAlignment="Right"/>
+                        </DockPanel>
+
+                        <Image Source="{Binding SelectedEinzelelement.Bild}" Margin="0,20,0,0"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+    
+</catel:Window>

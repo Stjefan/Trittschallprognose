@@ -1,0 +1,33 @@
+﻿<catel:UserControl x:Class="TrittschallprognoseCatel.Views.AuswertungView"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:catel="http://schemas.catelproject.com">
+
+    <StackPanel>
+        <TextBlock Text="Prognostizierter Trittschallpegel:"/>
+
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2" Orientation="Horizontal">
+            <TextBlock FontSize="20">L'<Run BaselineAlignment="Subscript" FontSize="12">n, w, R</Run></TextBlock>
+            <TextBlock FontSize="20" Text="&lt;" Margin="10,0,0,0"/>
+            <TextBlock FontSize="20" Text="{Binding PrognostizierterPegel, StringFormat={}{0:F1}}" Margin="10,0,0,0"/>
+        </StackPanel>
+        <TextBlock Text="Details:" Margin="0,50,0,0"/>
+        <ListView Grid.Row="1" ItemsSource="{Binding ZugehoerigerAufbau}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Produkt" DisplayMemberBinding=
+                          "{Binding Path=Bezeichnung}">
+
+                    </GridViewColumn>
+                    <GridViewColumn Header="Schichttyp" DisplayMemberBinding=
+                          "{Binding ZugeordneteSchicht}"></GridViewColumn>
+                    <GridViewColumn Header="Dicke" DisplayMemberBinding=
+                          "{Binding Dicke}"></GridViewColumn>
+                </GridView>
+            </ListView.View>
+
+        </ListView>
+        <TextBlock Grid.Row="2" Text="{Binding ErstelltAm, StringFormat=Erstellt am: {0:dd.MM.yyyy} um {0:HH:mm:ss}}" Margin="0,50,0,0"/>
+    </StackPanel>
+
+</catel:UserControl>

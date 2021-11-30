@@ -417,7 +417,6 @@ namespace Trittschallprognose
         public bool VorhandenC { get => vorhandenC; set { vorhandenC = value; NotifyPropertyChanged(); } }
         */
 
-        public SchichtDefaultViewModel SchichtA { get; set; }
     }
 
     public abstract class AAuswertung : INotifyPropertyChanged

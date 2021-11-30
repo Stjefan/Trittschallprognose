@@ -1,0 +1,17 @@
+﻿<catel:UserControl x:Class="TrittschallprognoseCatel.Views.DaemmungSchichtView"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:catel="http://schemas.catelproject.com" xmlns:views="clr-namespace:TrittschallprognoseCatel.Views">
+
+    <Grid Background="LightGray">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <views:DefaultSchichtView Grid.Row="0" DataContext="{Binding SchichtA}"></views:DefaultSchichtView>
+        <views:DefaultSchichtView Grid.Row="1" DataContext="{Binding SchichtB}"></views:DefaultSchichtView>
+        <views:DefaultSchichtView Grid.Row="2" DataContext="{Binding SchichtC}"></views:DefaultSchichtView>
+    </Grid>
+    
+</catel:UserControl>
