@@ -4,7 +4,7 @@
                    xmlns:catel="http://schemas.catelproject.com">
 
     <StackPanel>
-        <TextBlock Text="Prognostizierter Trittschallpegel:"/>
+        <TextBlock Text="Prognostizierter Trittschallpegel:" VerticalAlignment="Center"/>
 
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2" Orientation="Horizontal">
             <TextBlock FontSize="20">L'<Run BaselineAlignment="Subscript" FontSize="12">n, w, R</Run></TextBlock>

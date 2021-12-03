@@ -51,6 +51,7 @@
                     </StackPanel>
                     <StackPanel Grid.Column="1" Margin="5">
                         <TextBlock Text="Schematischer Aufbau" Grid.Row="0" HorizontalAlignment="Center"/>
+                        <ScrollViewer MaxHeight="500">
                         <StackPanel Grid.Row="1" Margin="0,100,0,0" >
                             <Image Source="{Binding Fliesenschicht.GewaehltesElement.Bild}" Grid.Column="1" Visibility="{Binding Fliesenschicht.Vorhanden, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                             <Image Source="{Binding Bekotecschicht.GewaehltesElement.Bild}" Grid.Column="1" Visibility="{Binding Bekotecschicht.Vorhanden, Converter={StaticResource BooleanToVisibilityConverter}}"/>
@@ -60,6 +61,7 @@
                             <Image Source="{Binding Daemmungschicht.SchichtC.GewaehltesElement.Bild}" Grid.Column="1" Visibility="{Binding Daemmungschicht.SchichtC.Vorhanden, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                             <Image Source="{Binding Betonschicht.GewaehltesElement.Bild}" Grid.Column="1" Visibility="{Binding Betonschicht.Vorhanden, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                         </StackPanel>
+                        </ScrollViewer>
                     </StackPanel>
 
                     <!--<ContentControl DataContext="{Binding Auswertung}" Grid.Column="2">-->

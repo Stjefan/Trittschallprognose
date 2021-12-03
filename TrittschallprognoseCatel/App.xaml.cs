@@ -2,6 +2,7 @@
 using Catel.Logging;
 using Catel.Reflection;
 using Catel.Windows;
+using System.Configuration;
 using System.Windows;
 
 namespace TrittschallprognoseCatel
@@ -37,8 +38,6 @@ namespace TrittschallprognoseCatel
 
             // To auto-forward styles, check out Orchestra (see https://github.com/wildgums/orchestra)
             // StyleHelper.CreateStyleForwardersForDefaultStyles();
-
-            Log.Info("Calling base.OnStartup");
 
             base.OnStartup(e);
         }

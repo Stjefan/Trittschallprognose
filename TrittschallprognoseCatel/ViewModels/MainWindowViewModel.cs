@@ -1,4 +1,5 @@
-﻿using Catel.MVVM;
+﻿using Catel.Configuration;
+using Catel.MVVM;
 using Ganss.Excel;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace TrittschallprognoseCatel.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
+        private readonly IConfigurationService _config;
         public Einzelelement SelectedEinzelelement { get; set; }
         public ObservableCollection<Einzelelement> Einzelelemente { get; set; }
         public ASchichtViewModel Betonschicht { get; set; }
@@ -21,11 +23,21 @@ namespace TrittschallprognoseCatel.ViewModels
         public AAuswertung Auswertung { get; set; }
 
         public bool BoolProp { get; set; }
-        public MainWindowViewModel()
+        public MainWindowViewModel(IConfigurationService config)
         {
+            _config = config;
+
+            var path2ExcelDb = _config.GetValue<string>(ConfigurationContainer.Local, "excelDb");
+            if (path2ExcelDb is null)
+            {
+                _config.SetLocalValue("excelDb", @"C:\Users\stsch\Desktop\ProdukteTrittschallprognose.xlsx");
+            }
+            
+            
+            var test = _config;
             Dictionary<string, List<Einzelelement>> myDict;
             List<Einzelelement> allEinzelelemente;
-            Einzelelement.ReadFromExcel("", out myDict,  out allEinzelelemente);
+            Einzelelement.ReadFromExcel(path2ExcelDb, out myDict,  out allEinzelelemente);
             BoolProp = true;
 
 
@@ -203,7 +215,7 @@ namespace TrittschallprognoseCatel.ViewModels
 
         public static void ReadFromExcel(string path, out Dictionary<string, List<Einzelelement>> schichtenMitMoeglichenElementen, out List<Einzelelement> alleElemente)
         {
-            var mapper = new ExcelMapper(@"C:\Users\stsch\Desktop\ProdukteTrittschallprognose.xlsx");
+            var mapper = new ExcelMapper(path);
 
 
             /*
